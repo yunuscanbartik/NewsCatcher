@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsCatcher.Functions", "NewsCatcher.Functions\NewsCatcher.Functions.csproj", "{A14FF90F-A547-4EA9-8F47-3B363A9F68ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsCatcherApi", "NewsCatcherApi\NewsCatcherApi.csproj", "{D2F4B190-1FF3-4FAE-881C-2DAEFA4070DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A14FF90F-A547-4EA9-8F47-3B363A9F68ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A14FF90F-A547-4EA9-8F47-3B363A9F68ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A14FF90F-A547-4EA9-8F47-3B363A9F68ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A14FF90F-A547-4EA9-8F47-3B363A9F68ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F4B190-1FF3-4FAE-881C-2DAEFA4070DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F4B190-1FF3-4FAE-881C-2DAEFA4070DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F4B190-1FF3-4FAE-881C-2DAEFA4070DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F4B190-1FF3-4FAE-881C-2DAEFA4070DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
