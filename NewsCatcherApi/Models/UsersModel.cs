@@ -2,14 +2,24 @@
 {
     public class UsersModel
     {
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public int RoleId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public string VerificationCode { get; set; }
-        public DateTime VerificationCodeExpiration { get; set; }
-        public bool IsUsed { get; set; }
+        public class LoginModel
+        {
+            public class Request 
+            {
+                public string Email { get; set; }
+                public string VerificationCode { get; set; }
+            }
+
+            public class Return : ReturnModel
+            {
+                public ReturnData? Data { get; set; }
+            }
+
+            public class ReturnData
+            {
+                public string UserName { get; set; }
+                public string Email { get; set; }
+            }
+        }
     }
 }

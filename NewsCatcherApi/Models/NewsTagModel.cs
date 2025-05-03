@@ -2,8 +2,23 @@
 {
     public class NewsTagModel
     {
-        public int NewTagId { get; set; }
-        public int NewsId { get; set; }
-        public int TagId { get; set; }
+        public class CreateModel
+        {
+            public class Request
+            {
+                public int NewsId { get; set; }
+                public int TagId { get; set; }
+            }
+            public class Return : ReturnModel
+            {
+                public ReturnData? Data { get; set; }
+            }
+            public class ReturnData
+            {
+                public int NewsTagId { get; set; }
+                public int NewsId { get; set; }
+                public int TagId { get; set; }
+            }
+        }
     }
 }
