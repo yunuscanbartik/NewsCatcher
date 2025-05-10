@@ -1,4 +1,4 @@
-﻿namespace NewsCatcherApi.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class NotificationModel
     {
@@ -21,7 +21,7 @@
                 public DateTime SendDate { get; set; }
             }
         }
-        
+
         public class BrowseModel
         {
             public class Request

@@ -1,10 +1,10 @@
-﻿namespace NewsCatcherApi.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class UsersModel
     {
         public class LoginModel
         {
-            public class Request 
+            public class Request
             {
                 public string Email { get; set; }
                 public string VerificationCode { get; set; }

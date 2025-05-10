@@ -1,4 +1,4 @@
-﻿namespace NewsCatcherApi.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class NewsTagModel
     {

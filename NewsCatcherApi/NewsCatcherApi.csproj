@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\NewsCatcher.Services\NewsCatcher.Services.csproj" />
   </ItemGroup>
 
 </Project>

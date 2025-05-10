@@ -1,4 +1,4 @@
-﻿namespace NewsCatcherApi.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class UserFavoritiesModel
     {
@@ -28,7 +28,7 @@
                 public int UserId { get; set; }
                 public int NewsId { get; set; }
             }
-            public class Return:ReturnModel
+            public class Return : ReturnModel
             {
                 public ReturnData? Data { get; set; }
             }
@@ -49,7 +49,7 @@
                 public int UserFavoritiesId { get; set; }
                 public int NewsId { get; set; }
             }
-            public class Return :ReturnModel
+            public class Return : ReturnModel
             {
                 public ReturnData? Data { get; set; }
             }

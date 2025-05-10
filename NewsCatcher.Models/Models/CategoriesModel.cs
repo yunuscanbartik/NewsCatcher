@@ -1,4 +1,4 @@
-﻿namespace NewsCatcherApi.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class CategoriesModel
     {
@@ -67,8 +67,8 @@
             }
         }
 
-        public class DeleteModel 
-        { 
+        public class DeleteModel
+        {
             public class Request
             {
                 public int CategorieId { get; set; }
