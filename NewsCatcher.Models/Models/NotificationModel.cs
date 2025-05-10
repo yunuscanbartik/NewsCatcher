@@ -2,8 +2,6 @@
 {
     public class NotificationModel
     {
-
-
         public class DeleteModel
         {
             public class Request
