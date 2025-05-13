@@ -1,6 +1,41 @@
-﻿namespace NewsCatcher.Services.Services
+﻿using Microsoft.Data.SqlClient;
+using NewsCatcher.Models.Models;
+using NewsCatcher.Services.Data;
+using NewsCatcher.Services.Interfaces;
+using System.Data;
+
+namespace NewsCatcher.Services.Services
 {
-    public class NewsTagService
+    public class NewsTagService : INewsTagService
     {
+        private readonly DatabaseContext _dbContext;
+        public NewsTagService(DatabaseContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public async Task<NewsTagModel.CreateModel.Return> AddNewsTagAsync(NewsTagModel.CreateModel.Request request)
+        {
+            var sqlConnection = _dbContext.DatabaseConnection();
+            var sqlCommand = new SqlCommand("sp_NewsTag_Create", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            sqlCommand.Parameters.AddWithValue("@NewsId", request.NewsId);
+            sqlCommand.Parameters.AddWithValue("@TagId", request.TagId);
+
+            await sqlCommand.ExecuteNonQueryAsync();
+            return new NewsTagModel.CreateModel.Return
+            {
+                Status = true,
+                Message = "Haber Etiketi Başarıyla Eklendi",
+                ErrorCode = null,
+                ErrorMessage = null,
+                RequestId = Guid.NewGuid().ToString(),
+                StatusCode = 200,
+                RequestTime = DateTime.UtcNow,
+                ResponseTime = DateTime.UtcNow
+            };
+        }
     }
 }
