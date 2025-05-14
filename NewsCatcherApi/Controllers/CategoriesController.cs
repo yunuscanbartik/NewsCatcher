@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Interfaces;
-using System.Threading.Tasks;
 
 namespace NewsCatcherApi.Controllers
 {
@@ -18,10 +17,34 @@ namespace NewsCatcherApi.Controllers
             _categoriesService = categoriesService;
         }
 
-        [HttpGet]
+        [HttpGet("GetCategory")]
         public async Task<IActionResult> GetCategories(CategoriesModel.BrowseModel.Request request)
         {
             var result = await _categoriesService.GetCategoriesAsync(request);
+            return Ok(result);
+        }
+        [HttpGet("GetCategoryById")]
+        public async Task<IActionResult> GetCategoriesById(CategoriesModel.BrowseModel.Request request)
+        {
+            var result = await _categoriesService.GetCategoryByIdAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("AddCategory")]
+        public async Task<IActionResult> AddCategoryAsync(CategoriesModel.CreateModel.Request request)
+        {
+            var result = await _categoriesService.AddCategoryAsync(request);
+            return Ok(result);
+        }
+        [HttpPut("UpdateCategory")]
+        public async Task<IActionResult> UpdateCategoryAsync(CategoriesModel.UpdateModel.Request request)
+        {
+            var result = await _categoriesService.UpdateCategoryAsync(request);
+            return Ok(result);
+        }
+        [HttpDelete("DeleteCategory")]
+        public async Task<IActionResult> DeleteCategoryAsync(CategoriesModel.DeleteModel.Request request)
+        {
+            var result = await _categoriesService.DeleteGetCategoryAsync(request);
             return Ok(result);
         }
     }

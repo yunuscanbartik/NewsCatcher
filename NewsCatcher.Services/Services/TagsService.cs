@@ -8,8 +8,8 @@ namespace NewsCatcher.Services.Services
 {
     public class TagsService : ITagsService
     {
-        private readonly DatabaseContext _dbContext;
-        public TagsService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public TagsService(IDatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -24,7 +24,8 @@ namespace NewsCatcher.Services.Services
             sqlCommand.Parameters.AddWithValue("@TagName", request.TagName);
 
             await sqlCommand.ExecuteNonQueryAsync();
-            return new TagsModel.CreateModel.Return {                 
+            return new TagsModel.CreateModel.Return
+            {
                 Status = true,
                 Message = "Etiket Başarıyla Eklendi",
                 ErrorCode = null,
@@ -45,7 +46,7 @@ namespace NewsCatcher.Services.Services
             };
 
             sqlCommand.Parameters.AddWithValue("@TagId", request.TagId);
-            
+
             await sqlCommand.ExecuteNonQueryAsync();
             return new TagsModel.DeleteModel.Return
             {
@@ -58,7 +59,7 @@ namespace NewsCatcher.Services.Services
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };
-            
+
         }
 
         public async Task<TagsModel.BrowseModel.Return> GetTagsAsync(TagsModel.BrowseModel.Request request)

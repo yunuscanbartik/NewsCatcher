@@ -1,24 +1,35 @@
+using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
 using NewsCatcher.Services.Services;
+using NewsCatcherApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
 builder.Services.AddSingleton<ICategoriesService, CategoriesService>();
+builder.Services.AddSingleton<INewsService, NewsService>();
+builder.Services.AddSingleton<INewsStatisticsService, NewsStatisticsService>();
+builder.Services.AddSingleton<INewsTagService, NewsTagService>();
+builder.Services.AddSingleton<INotificationService, NotificationService>();
+builder.Services.AddSingleton<ITagsService, TagsService>();
+builder.Services.AddSingleton<IUserFavoritiesService, UserFavoritiesService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSwaggerGen(swagger =>
+{
+    var schemaHelper = new SwashbuckleSchemaHelper();
+    swagger.CustomSchemaIds(type => schemaHelper.GetSchemaId(type));
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

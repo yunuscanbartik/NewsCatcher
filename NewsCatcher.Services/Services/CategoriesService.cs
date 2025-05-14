@@ -3,7 +3,6 @@ using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
 using System.Data;
-using System.Security.AccessControl;
 
 namespace NewsCatcher.Services.Services
 {
@@ -13,8 +12,8 @@ namespace NewsCatcher.Services.Services
     /// </summary>
     public class CategoriesService : ICategoriesService
     {
-        private readonly DatabaseContext _dbContext;
-        public CategoriesService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public CategoriesService(IDatabaseContext dbContext)
         {
             dbContext = _dbContext;
         }
@@ -42,7 +41,7 @@ namespace NewsCatcher.Services.Services
                 ResponseTime = DateTime.UtcNow
             };
         }
-          
+
         public async Task<CategoriesModel.DeleteModel.Return> DeleteGetCategoryAsync(CategoriesModel.DeleteModel.Request request)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
@@ -73,7 +72,7 @@ namespace NewsCatcher.Services.Services
             {
                 CommandType = CommandType.StoredProcedure
             };
-            
+
             await sqlCommand.ExecuteReaderAsync();
 
             return new CategoriesModel.BrowseModel.Return
@@ -83,7 +82,7 @@ namespace NewsCatcher.Services.Services
                 ErrorCode = null,
                 ErrorMessage = null,
                 RequestId = Guid.NewGuid().ToString(), // Her işlem için benzersiz bir ID oluştur
-                StatusCode = 200, 
+                StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };
@@ -107,8 +106,8 @@ namespace NewsCatcher.Services.Services
                 Message = "Kategori Başarıyla Listelendi",
                 ErrorCode = null,
                 ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(), 
-                StatusCode = 200, 
+                RequestId = Guid.NewGuid().ToString(),
+                StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };
@@ -117,7 +116,7 @@ namespace NewsCatcher.Services.Services
 
         public async Task<CategoriesModel.UpdateModel.Return> UpdateCategoryAsync(CategoriesModel.UpdateModel.Request request)
         {
-            var sqlConnection = _dbContext.DatabaseConnection();    
+            var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_Categories_Update", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure

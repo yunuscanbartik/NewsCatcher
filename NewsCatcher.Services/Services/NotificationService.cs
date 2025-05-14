@@ -8,8 +8,8 @@ namespace NewsCatcher.Services.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly DatabaseContext _dbContext;
-        public NotificationService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public NotificationService(IDatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }

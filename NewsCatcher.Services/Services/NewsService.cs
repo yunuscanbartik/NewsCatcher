@@ -2,19 +2,14 @@
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NewsCatcher.Services.Services
 {
-    public class NewsService : INewsService      
+    public class NewsService : INewsService
     {
-        private readonly DatabaseContext _dbContext;
-        public NewsService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public NewsService(IDatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -38,7 +33,7 @@ namespace NewsCatcher.Services.Services
                 Message = "Haber Başarıyla Eklendi",
                 ErrorCode = null,
                 ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(), 
+                RequestId = Guid.NewGuid().ToString(),
                 StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
@@ -61,8 +56,8 @@ namespace NewsCatcher.Services.Services
                 Message = "Haber Başarıyla Silindi",
                 ErrorCode = null,
                 ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(), 
-                StatusCode = 200, 
+                RequestId = Guid.NewGuid().ToString(),
+                StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };
@@ -84,12 +79,12 @@ namespace NewsCatcher.Services.Services
                 Message = "Haber Başarıyla Alındı",
                 ErrorCode = null,
                 ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(), 
-                StatusCode = 200, 
+                RequestId = Guid.NewGuid().ToString(),
+                StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };
-                       
+
         }
 
         public async Task<NewsModel.BrowseModel.Return> GetNewsByIdAsync(NewsModel.BrowseModel.Request request)
@@ -135,8 +130,8 @@ namespace NewsCatcher.Services.Services
                 Message = "Haber Başarıyla Güncellendi",
                 ErrorCode = null,
                 ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(), 
-                StatusCode = 200, 
+                RequestId = Guid.NewGuid().ToString(),
+                StatusCode = 200,
                 RequestTime = DateTime.UtcNow,
                 ResponseTime = DateTime.UtcNow
             };

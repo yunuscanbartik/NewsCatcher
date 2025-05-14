@@ -7,7 +7,7 @@ namespace NewsCatcher.Services.Data
     /// <summary>
     /// Database bağlaantısı için app settings.json dosyasındaki DefaultConnection bağlantı dizesini kullanır.
     /// </summary>
-    public class DatabaseContext
+    public class DatabaseContext : IDatabaseContext
     {
         private readonly string _connectionString;
         public DatabaseContext(IConfiguration configuration)

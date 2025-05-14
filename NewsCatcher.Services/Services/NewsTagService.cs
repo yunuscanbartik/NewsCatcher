@@ -8,8 +8,8 @@ namespace NewsCatcher.Services.Services
 {
     public class NewsTagService : INewsTagService
     {
-        private readonly DatabaseContext _dbContext;
-        public NewsTagService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public NewsTagService(IDatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }

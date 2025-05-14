@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
@@ -9,8 +8,8 @@ namespace NewsCatcher.Services.Services
 {
     public class UserFavoritiesService : IUserFavoritiesService
     {
-        private readonly DatabaseContext _dbContext;
-        public UserFavoritiesService(DatabaseContext dbContext)
+        private readonly IDatabaseContext _dbContext;
+        public UserFavoritiesService(IDatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }

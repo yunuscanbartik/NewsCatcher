@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewsCatcher.Models.Models
+﻿namespace NewsCatcher.Models.Models
 {
     public class NewsModel
     {
