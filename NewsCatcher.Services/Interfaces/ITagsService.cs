@@ -8,6 +8,6 @@ namespace NewsCatcher.Services.Interfaces
         Task<TagsModel.CreateModel.Return> AddTagAsync(TagsModel.CreateModel.Request request);
         Task<TagsModel.UpdateModel.Return> UpdateTagAsync(TagsModel.UpdateModel.Request request);
         Task<TagsModel.DeleteModel.Return> DeleteTagAsync(TagsModel.DeleteModel.Request request);
-        Task<TagsModel.DeleteModel.Return> GetTagsByIdAsync(TagsModel.DeleteModel.Request request);
+        Task<TagsModel.BrowseModel.Return> GetTagsByIdAsync(TagsModel.BrowseModel.Request request);
     }
 }

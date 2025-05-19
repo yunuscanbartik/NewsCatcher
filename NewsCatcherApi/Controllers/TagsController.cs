@@ -20,7 +20,7 @@ namespace NewsCatcherApi.Controllers
             return Ok(result);
         }
         [HttpGet("GetTagsById")]
-        public async Task<IActionResult> GetTagsByIdAsync([FromQuery] TagsModel.DeleteModel.Request request)
+        public async Task<IActionResult> GetTagsByIdAsync([FromQuery] TagsModel.BrowseModel.Request request)
         {
             var result = await _tagsService.GetTagsByIdAsync(request);
             return Ok(result);

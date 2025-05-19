@@ -13,6 +13,11 @@ namespace NewsCatcher.Services.Services
         {
             _dbContext = dbContext;
         }
+        /// <summary>
+        /// Habere etiket eklemek için kullanılır. Var olan habere etiket ekler ve bu etiketin habere ait olduğunu belirtir.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<NewsTagModel.CreateModel.Return> AddNewsTagAsync(NewsTagModel.CreateModel.Request request)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
@@ -20,7 +25,6 @@ namespace NewsCatcher.Services.Services
             {
                 CommandType = CommandType.StoredProcedure
             };
-
             sqlCommand.Parameters.AddWithValue("@NewsId", request.NewsId);
             sqlCommand.Parameters.AddWithValue("@TagId", request.TagId);
             try
@@ -51,7 +55,6 @@ namespace NewsCatcher.Services.Services
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
-
             }
         }
     }
