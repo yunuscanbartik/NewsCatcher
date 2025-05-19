@@ -14,7 +14,7 @@ namespace NewsCatcherApi.Controllers
             _userFavoritiesService = userFavoritiesService;
         }
         [HttpGet("GetUserFavoritiesById")]
-        public async Task<IActionResult> GetUserFavoritiesByIdAsync(UserFavoritiesModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetUserFavoritiesByIdAsync([FromQuery] UserFavoritiesModel.BrowseModel.Request request)
         {
             var result = await _userFavoritiesService.GetUserFavoritiesByIdAsync(request);
             return Ok(result);

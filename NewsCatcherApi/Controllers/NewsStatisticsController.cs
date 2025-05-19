@@ -14,7 +14,7 @@ namespace NewsCatcherApi.Controllers
             _newsStatisticsService = newsService;
         }
         [HttpGet("GetNewsStatistics")]
-        public async Task<IActionResult> GetNewsStatisticsAsync(NewsStatisticsModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetNewsStatisticsAsync([FromQuery] NewsStatisticsModel.BrowseModel.Request request)
         {
             var result = await _newsStatisticsService.GetNewsStatisticsByIdAsync(request);
             return Ok(result);

@@ -23,19 +23,36 @@ namespace NewsCatcher.Services.Services
 
             sqlCommand.Parameters.AddWithValue("@NewsId", request.NewsId);
             sqlCommand.Parameters.AddWithValue("@TagId", request.TagId);
-
-            await sqlCommand.ExecuteNonQueryAsync();
-            return new NewsTagModel.CreateModel.Return
+            try
             {
-                Status = true,
-                Message = "Haber Etiketi Başarıyla Eklendi",
-                ErrorCode = null,
-                ErrorMessage = null,
-                RequestId = Guid.NewGuid().ToString(),
-                StatusCode = 200,
-                RequestTime = DateTime.UtcNow,
-                ResponseTime = DateTime.UtcNow
-            };
+                await sqlCommand.ExecuteNonQueryAsync();
+                return new NewsTagModel.CreateModel.Return
+                {
+                    Status = true,
+                    Message = "Haber Etiketi Başarıyla Eklendi",
+                    ErrorCode = null,
+                    ErrorMessage = null,
+                    RequestId = Guid.NewGuid().ToString(),
+                    StatusCode = 200,
+                    RequestTime = DateTime.UtcNow,
+                    ResponseTime = DateTime.UtcNow
+                };
+            }
+            catch (Exception ex)
+            {
+                return new NewsTagModel.CreateModel.Return
+                {
+                    Status = false,
+                    Message = "Haber Etiketi Eklenemdi.",
+                    ErrorCode = null,
+                    ErrorMessage = null,
+                    RequestId = Guid.NewGuid().ToString(),
+                    StatusCode = 404,
+                    RequestTime = DateTime.UtcNow,
+                    ResponseTime = DateTime.UtcNow
+                };
+
+            }
         }
     }
 }

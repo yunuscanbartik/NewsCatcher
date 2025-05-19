@@ -13,7 +13,7 @@ namespace NewsCatcherApi.Controllers
         {
             _newsTagService = newsTagService;
         }
-        [HttpGet("AddNewsTag")]
+        [HttpPost("AddNewsTag")]
         public async Task<IActionResult> AddNewsTagAsync(NewsTagModel.CreateModel.Request request)
         {
             var result = await _newsTagService.AddNewsTagAsync(request);

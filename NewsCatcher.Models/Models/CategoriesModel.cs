@@ -12,7 +12,7 @@
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData> Data { get; set; }
             }
             public class ReturnData
             {
@@ -33,7 +33,7 @@
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
@@ -75,7 +75,7 @@
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {

@@ -18,13 +18,13 @@ namespace NewsCatcherApi.Controllers
         }
 
         [HttpGet("GetCategory")]
-        public async Task<IActionResult> GetCategories(CategoriesModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetCategories([FromQuery] CategoriesModel.BrowseModel.Request request)
         {
             var result = await _categoriesService.GetCategoriesAsync(request);
             return Ok(result);
         }
         [HttpGet("GetCategoryById")]
-        public async Task<IActionResult> GetCategoriesById(CategoriesModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetCategoriesById([FromQuery] CategoriesModel.BrowseModel.Request request)
         {
             var result = await _categoriesService.GetCategoryByIdAsync(request);
             return Ok(result);

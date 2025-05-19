@@ -14,7 +14,7 @@ namespace NewsCatcherApi.Controllers
             _notificationService = notificationService;
         }
         [HttpGet("GetNotifications")]
-        public async Task<IActionResult> GetNotificationsAsync(NotificationModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetNotificationsAsync([FromQuery] NotificationModel.BrowseModel.Request request)
         {
             var result = await _notificationService.GetNotificationByIdAsync(request);
             return Ok(result);

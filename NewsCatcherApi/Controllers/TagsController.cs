@@ -14,9 +14,15 @@ namespace NewsCatcherApi.Controllers
             _tagsService = tagsService;
         }
         [HttpGet("GetTags")]
-        public async Task<IActionResult> GetTagsAsync(TagsModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetTagsAsync([FromQuery] TagsModel.BrowseModel.Request request)
         {
             var result = await _tagsService.GetTagsAsync(request);
+            return Ok(result);
+        }
+        [HttpGet("GetTagsById")]
+        public async Task<IActionResult> GetTagsByIdAsync([FromQuery] TagsModel.DeleteModel.Request request)
+        {
+            var result = await _tagsService.GetTagsByIdAsync(request);
             return Ok(result);
         }
         [HttpPost("AddTag")]
@@ -35,12 +41,6 @@ namespace NewsCatcherApi.Controllers
         public async Task<IActionResult> DeleteTagAsync(TagsModel.DeleteModel.Request request)
         {
             var result = await _tagsService.DeleteTagAsync(request);
-            return Ok(result);
-        }
-        [HttpGet("GetTagsById")]
-        public async Task<IActionResult> GetTagsByIdAsync(TagsModel.DeleteModel.Request request)
-        {
-            var result = await _tagsService.GetTagsByIdAsync(request);
             return Ok(result);
         }
     }

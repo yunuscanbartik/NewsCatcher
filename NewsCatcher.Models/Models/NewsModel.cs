@@ -10,7 +10,7 @@
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData> Data { get; set; }
             }
             public class ReturnData
             {
@@ -62,6 +62,7 @@
                 public string Content { get; set; }
                 public string Summary { get; set; }
                 public int CategoryId { get; set; }
+                public string? SourceName { get; set; }
             }
             public class Return : ReturnModel
             {

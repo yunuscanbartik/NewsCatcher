@@ -14,9 +14,15 @@ namespace NewsCatcherApi.Controllers
             _newsService = newsService;
         }
         [HttpGet("GetNews")]
-        public async Task<IActionResult> GetNewsAsync(NewsModel.BrowseModel.Request request)
+        public async Task<IActionResult> GetNewsAsync([FromQuery] NewsModel.BrowseModel.Request request)
         {
             var result = await _newsService.GetNewsAsync(request);
+            return Ok(result);
+        }
+        [HttpGet("GetNewsById")]
+        public async Task<IActionResult> GetNewsByIdAsync([FromQuery] NewsModel.BrowseModel.Request request)
+        {
+            var result = await _newsService.GetNewsByIdAsync(request);
             return Ok(result);
         }
         [HttpPost("AddNews")]
@@ -37,12 +43,5 @@ namespace NewsCatcherApi.Controllers
             var result = await _newsService.DeleteGetNewsAsync(request);
             return Ok(result);
         }
-        [HttpGet("GetNewsById")]
-        public async Task<IActionResult> GetNewsByIdAsync(NewsModel.BrowseModel.Request request)
-        {
-            var result = await _newsService.GetNewsByIdAsync(request);
-            return Ok(result);
-        }
-
     }
 }
