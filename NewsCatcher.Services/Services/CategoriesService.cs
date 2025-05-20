@@ -35,16 +35,19 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync()) //using'in amacı kullanıldıktan sonra otomatik kapatılması
                 {
-                    while (await reader.ReadAsync())
+                    if (reader.HasRows) //Reader da yani prosedürde veri var mı yok mu kontrolü yapıyoruz.
                     {
-                        categories.Add(new CategoriesModel.BrowseModel.ReturnData
-                        { //bak burada categories modelinin returnData sınıfını kullanıyorduk ya onun içine dolduruypruz
-                            CategorieId = reader.GetInt32("CategorieId"),
-                            CategorieName = reader.GetString("CategorieName"),
-                            CategorieDescription = reader.GetString("CategorieDescription"),
-                            CreatedDate = reader.GetDateTime("CreatedDate"),
-                            UpdatedDate = reader.GetDateTime("CreatedDate")
-                        });
+                        while (await reader.ReadAsync())
+                        {
+                            categories.Add(new CategoriesModel.BrowseModel.ReturnData //bak burada categories modelinin returnData sınıfını kullanıyorduk ya onun içine dolduruypruz
+                            {
+                                CategorieId = reader.GetInt32("CategorieId"),
+                                CategorieName = reader.GetString("CategorieName"),
+                                CategorieDescription = reader.GetString("CategorieDescription"),
+                                CreatedDate = reader.GetDateTime("CreatedDate"),
+                                UpdatedDate = reader.GetDateTime("CreatedDate")
+                            });
+                        }
                     }
                 }
                 return new CategoriesModel.BrowseModel.Return
