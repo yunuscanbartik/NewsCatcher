@@ -6,18 +6,18 @@
         {
             public class Request
             {
-                public int UserId { get; set; }
+                public int? UserId { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData> Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int UserFavoritiesId { get; set; }
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? UserFavoritiesId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
 
@@ -25,8 +25,8 @@
         {
             public class Request
             {
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -34,10 +34,10 @@
             }
             public class ReturnData
             {
-                public int UserFavoritiesId { get; set; }
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? UserFavoritiesId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
 
@@ -46,8 +46,8 @@
         {
             public class Request
             {
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -55,10 +55,10 @@
             }
             public class ReturnData
             {
-                public int UserFavoritiesId { get; set; }
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? UserFavoritiesId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
 
@@ -66,7 +66,7 @@
         {
             public class Request
             {
-                public int UserFavoritiesId { get; set; }
+                public int? UserFavoritiesId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -74,10 +74,10 @@
             }
             public class ReturnData
             {
-                public int UserFavoritiesId { get; set; }
-                public int UserId { get; set; }
-                public int NewsId { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? UserFavoritiesId { get; set; }
+                public int? UserId { get; set; }
+                public int? NewsId { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
     }

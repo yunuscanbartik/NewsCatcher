@@ -8,19 +8,19 @@
         {
             public class Request
             {
-                public int CategorieId { get; set; }
+                public int? CategorieId { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData> Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int CategorieId { get; set; }
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
-                public DateTime CreatedDate { get; set; }
-                public DateTime UpdatedDate { get; set; }
+                public int? CategorieId { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
+                public DateTime? CreatedDate { get; set; }
+                public DateTime? UpdatedDate { get; set; }
             }
         }
 
@@ -28,8 +28,8 @@
         {
             public class Request
             {
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -37,11 +37,11 @@
             }
             public class ReturnData
             {
-                public int CategorieId { get; set; }
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
-                public DateTime CreatedDate { get; set; }
-                public DateTime UpdatedDate { get; set; }
+                public int? CategorieId { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
+                public DateTime? CreatedDate { get; set; }
+                public DateTime? UpdatedDate { get; set; }
             }
         }
 
@@ -49,9 +49,9 @@
         {
             public class Request
             {
-                public int CategorieId { get; set; }
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
+                public int? CategorieId { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -59,11 +59,11 @@
             }
             public class ReturnData
             {
-                public int CategorieId { get; set; }
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
-                public DateTime CreatedDate { get; set; }
-                public DateTime UpdatedDate { get; set; }
+                public int? CategorieId { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
+                public DateTime? CreatedDate { get; set; }
+                public DateTime? UpdatedDate { get; set; }
             }
         }
 
@@ -71,7 +71,7 @@
         {
             public class Request
             {
-                public int CategorieId { get; set; }
+                public int? CategorieId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -79,11 +79,11 @@
             }
             public class ReturnData
             {
-                public int CategorieId { get; set; }
-                public string CategorieName { get; set; }
-                public string CategorieDescription { get; set; }
-                public DateTime CreatedDate { get; set; }
-                public DateTime UpdatedDate { get; set; }
+                public int? CategorieId { get; set; }
+                public string? CategorieName { get; set; }
+                public string? CategorieDescription { get; set; }
+                public DateTime? CreatedDate { get; set; }
+                public DateTime? UpdatedDate { get; set; }
             }
         }
     }

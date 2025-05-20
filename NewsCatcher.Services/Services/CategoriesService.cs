@@ -69,7 +69,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -130,7 +130,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -175,7 +175,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -186,7 +186,7 @@ namespace NewsCatcher.Services.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CategoriesModel.UpdateModel.Return> UpdateCategoryAsync(CategoriesModel.UpdateModel.Request request) 
+        public async Task<CategoriesModel.UpdateModel.Return> UpdateCategoryAsync(CategoriesModel.UpdateModel.Request request)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_Categories_Update", sqlConnection)
@@ -220,7 +220,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -231,7 +231,7 @@ namespace NewsCatcher.Services.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CategoriesModel.DeleteModel.Return> DeleteGetCategoryAsync(CategoriesModel.DeleteModel.Request request)
+        public async Task<CategoriesModel.DeleteModel.Return> DeleteCategoryAsync(CategoriesModel.DeleteModel.Request request)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_Categories_Delete", sqlConnection)
@@ -264,7 +264,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };

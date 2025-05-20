@@ -6,24 +6,24 @@
         {
             public class Request
             {
-                public int TagId { get; set; }
+                public int? TagId { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData> Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int TagId { get; set; }
-                public string TagName { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? TagId { get; set; }
+                public string? TagName { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
         public class CreateModel
         {
             public class Request
             {
-                public string TagName { get; set; }
+                public string? TagName { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -31,9 +31,9 @@
             }
             public class ReturnData
             {
-                public int TagId { get; set; }
-                public string TagName { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? TagId { get; set; }
+                public string? TagName { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
 
@@ -41,8 +41,8 @@
         {
             public class Request
             {
-                public int TagId { get; set; }
-                public string TagName { get; set; }
+                public int? TagId { get; set; }
+                public string? TagName { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -50,9 +50,9 @@
             }
             public class ReturnData
             {
-                public int TagId { get; set; }
-                public string TagName { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? TagId { get; set; }
+                public string? TagName { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
 
@@ -60,17 +60,17 @@
         {
             public class Request
             {
-                public int TagId { get; set; }
+                public int? TagId { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData> Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int TagId { get; set; }
-                public string TagName { get; set; }
-                public DateTime CreatedAt { get; set; }
+                public int? TagId { get; set; }
+                public string? TagName { get; set; }
+                public DateTime? CreatedAt { get; set; }
             }
         }
     }

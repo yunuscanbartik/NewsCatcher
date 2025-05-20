@@ -26,19 +26,19 @@
         {
             public class Request
             {
-                public int UserId { get; set; }
+                public int? UserId { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData> Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int NotificationId { get; set; }
-                public int UserId { get; set; }
-                public string Message { get; set; }
-                public bool IsRead { get; set; }
-                public DateTime SendDate { get; set; }
+                public int? NotificationId { get; set; }
+                public int? UserId { get; set; }
+                public string? Message { get; set; }
+                public bool? IsRead { get; set; }
+                public DateTime? SendDate { get; set; }
             }
         }
 
@@ -46,8 +46,8 @@
         {
             public class Request
             {
-                public int UserId { get; set; }
-                public string Message { get; set; }
+                public int? UserId { get; set; }
+                public string? Message { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -55,11 +55,11 @@
             }
             public class ReturnData
             {
-                public int NotificationId { get; set; }
-                public int UserId { get; set; }
-                public string Message { get; set; }
-                public bool IsRead { get; set; }
-                public DateTime SendDate { get; set; }
+                public int? NotificationId { get; set; }
+                public int? UserId { get; set; }
+                public string? Message { get; set; }
+                public bool? IsRead { get; set; }
+                public DateTime? SendDate { get; set; }
             }
         }
 
@@ -67,20 +67,20 @@
         {
             public class Request
             {
-                public int NotificationId { get; set; }
-                public bool IsRead { get; set; }
+                public int? NotificationId { get; set; }
+                public bool? IsRead { get; set; }
             }
             public class Return : ReturnModel
             {
-                public List<ReturnData>? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
-                public int NotificationId { get; set; }
-                public int UserId { get; set; }
-                public string Message { get; set; }
-                public bool IsRead { get; set; }
-                public DateTime SendDate { get; set; }
+                public int? NotificationId { get; set; }
+                public int? UserId { get; set; }
+                public string? Message { get; set; }
+                public bool? IsRead { get; set; }
+                public DateTime? SendDate { get; set; }
             }
         }
     }

@@ -64,7 +64,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };

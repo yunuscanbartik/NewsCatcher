@@ -44,7 +44,7 @@ namespace NewsCatcherApi.Controllers
         [HttpDelete("DeleteCategory")]
         public async Task<IActionResult> DeleteCategoryAsync(CategoriesModel.DeleteModel.Request request)
         {
-            var result = await _categoriesService.DeleteGetCategoryAsync(request);
+            var result = await _categoriesService.DeleteCategoryAsync(request);
             return Ok(result);
         }
     }

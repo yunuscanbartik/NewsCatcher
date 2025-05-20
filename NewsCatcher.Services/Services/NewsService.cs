@@ -67,7 +67,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -129,7 +129,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = ex.HResult.ToString(),
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -177,7 +177,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 500,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -228,7 +228,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -239,7 +239,7 @@ namespace NewsCatcher.Services.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<NewsModel.DeleteModel.Return> DeleteGetNewsAsync(NewsModel.DeleteModel.Request request)
+        public async Task<NewsModel.DeleteModel.Return> DeleteNewsAsync(NewsModel.DeleteModel.Request request)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_News_Delete", sqlConnection)
@@ -272,7 +272,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null

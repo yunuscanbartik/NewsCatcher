@@ -61,7 +61,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -103,7 +103,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -144,7 +144,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -183,7 +183,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };

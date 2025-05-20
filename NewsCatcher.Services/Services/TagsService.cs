@@ -62,7 +62,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -88,15 +88,18 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        tags.Add(new TagsModel.BrowseModel.ReturnData
+                        while (reader.Read())
                         {
-                            TagId = reader.GetInt32("TagsId"),
-                            TagName = reader.GetString("TagName"),
-                            CreatedAt = reader.GetDateTime("CreatedAt")
-                        });
-                    }
+                            tags.Add(new TagsModel.BrowseModel.ReturnData
+                            {
+                                TagId = reader.GetInt32("TagsId"),
+                                TagName = reader.GetString("TagName"),
+                                CreatedAt = reader.GetDateTime("CreatedAt")
+                            });
+                        }
+                    }                
                     return new TagsModel.BrowseModel.Return
                     {
                         Status = true,
@@ -119,7 +122,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow,
                     Data = null
@@ -165,7 +168,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -210,7 +213,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
@@ -254,7 +257,7 @@ namespace NewsCatcher.Services.Services
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
-                    StatusCode = 404,
+                    StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
                     ResponseTime = DateTime.UtcNow
                 };
