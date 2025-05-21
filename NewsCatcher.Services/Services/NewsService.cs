@@ -143,7 +143,7 @@ namespace NewsCatcher.Services.Services
         /// <returns></returns>
         public async Task<NewsModel.CreateModel.Return> AddNewsAsync(NewsModel.CreateModel.Request request)
         {
-                var sqlConnection = _dbContext.DatabaseConnection();
+            var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
