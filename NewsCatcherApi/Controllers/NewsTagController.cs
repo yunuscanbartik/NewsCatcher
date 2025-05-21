@@ -13,6 +13,11 @@ namespace NewsCatcherApi.Controllers
         {
             _newsTagService = newsTagService;
         }
+        /// <summary>
+        /// yeni bir haber etiketi ekler.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("AddNewsTag")]
         public async Task<IActionResult> AddNewsTagAsync(NewsTagModel.CreateModel.Request request)
         {
