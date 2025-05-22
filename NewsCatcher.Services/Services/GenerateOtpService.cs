@@ -4,6 +4,7 @@ using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,24 +20,37 @@ namespace NewsCatcher.Services.Services
         }
         public async Task<GenerateOtpModel.GenerateOtp.Return> GenerateOtpAsync(GenerateOtpModel.GenerateOtp.Request request)
         {
+            var otp = new List<GenerateOtpModel.GenerateOtp.ReturnData>();
             var sqlConnection = _dbContext.DatabaseConnection();
-            var sqlCommand = new SqlCommand("sp_GenerateOtp", sqlConnection);   
+            var sqlCommand = new SqlCommand("sp_GenerateOtpCode", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
             sqlCommand.Parameters.AddWithValue("@Email", request.Email);
+
             try
             {
-                await sqlCommand.ExecuteNonQueryAsync();
+                using (var reader = await sqlCommand.ExecuteReaderAsync())
+                    while (await reader.ReadAsync())
+                    {
+                        otp.Add(new GenerateOtpModel.GenerateOtp.ReturnData
+                        {
+                            Email = reader.GetString("Email"),
+                            VerificationCode = reader.GetString("VerificationCode")
+                        });
+                    }
                 return new GenerateOtpModel.GenerateOtp.Return
                 {
                     Status = true,
-                    Message = "Otp Kodu oluşturuldu",
+                    Message = "OTP başarıyla oluşturuldu",
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
                     RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    ResponseTime = DateTime.UtcNow,
+                    Data = otp
                 };
-
             }
             catch (Exception ex)
             {
@@ -53,9 +67,5 @@ namespace NewsCatcher.Services.Services
                 };
             }
         }
-        public Task<GenerateOtpModel.GenerateOtp.Return> SendMailAsync(GenerateOtpModel.GenerateOtp.Request request)
-        {
-            throw new NotImplementedException();
-        }
-    }  
+    }
 }

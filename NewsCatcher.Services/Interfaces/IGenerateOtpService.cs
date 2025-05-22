@@ -10,6 +10,5 @@ namespace NewsCatcher.Services.Interfaces
     public interface IGenerateOtpService
     {
         Task<GenerateOtpModel.GenerateOtp.Return> GenerateOtpAsync(GenerateOtpModel.GenerateOtp.Request request);
-        Task<GenerateOtpModel.GenerateOtp.Return> SendMailAsync(GenerateOtpModel.GenerateOtp.Request request);
     }
 }
