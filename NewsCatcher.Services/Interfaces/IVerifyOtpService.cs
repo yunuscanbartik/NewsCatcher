@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace NewsCatcher.Services.Interfaces
 {
-    public interface IGenerateOtpService
+    public interface IVerifyOtpService
     {
-        Task<OtpModel.GenerateOtp.Return> GenerateOtpAsync(OtpModel.GenerateOtp.Request request);
+        Task<OtpModel.VerifyOtp.Return> VerifyOtpAsync(OtpModel.VerifyOtp.Request request);
     }
 }

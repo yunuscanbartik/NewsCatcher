@@ -15,7 +15,7 @@ namespace NewsCatcherApi.Controllers
             _generateOtpService = generateOtpService;
         }
         [HttpPost("GenerateOtp")]
-        public async Task<IActionResult> GenerateOtp(GenerateOtpModel.GenerateOtp.Request request)
+        public async Task<IActionResult> GenerateOtp(OtpModel.GenerateOtp.Request request)
         {
             var result = await _generateOtpService.GenerateOtpAsync(request);
             return Ok(result);

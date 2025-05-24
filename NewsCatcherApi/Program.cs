@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
 builder.Services.AddSingleton<IGenerateOtpService, GenerateOtpService>();
+builder.Services.AddSingleton<IVerifyOtpService, VerifyOtpService>();
 builder.Services.AddSingleton<ICategoriesService, CategoriesService>();
 builder.Services.AddSingleton<ITagsService, TagsService>();
 builder.Services.AddSingleton<INewsTagService, NewsTagService>();
@@ -18,6 +19,7 @@ builder.Services.AddSingleton<INewsService, NewsService>();
 builder.Services.AddSingleton<INewsStatisticsService, NewsStatisticsService>();
 builder.Services.AddSingleton<INotificationService, NotificationService>();
 builder.Services.AddSingleton<IUserFavoritiesService, UserFavoritiesService>();
+builder.Services.AddSingleton<IEmailService, SendEmailService>();
 
 builder.Services.AddSwaggerGen(swagger =>
 {
