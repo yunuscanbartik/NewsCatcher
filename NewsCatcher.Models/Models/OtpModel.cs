@@ -43,6 +43,7 @@ namespace NewsCatcher.Models.Models
             {
                 public string? Email { get; set; }
                 public bool IsUsed { get; set; }
+                public string? JwtToken { get; set; }
             }
         }
     }

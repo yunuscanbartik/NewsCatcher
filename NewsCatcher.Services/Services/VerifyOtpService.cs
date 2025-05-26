@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
@@ -8,16 +9,39 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace NewsCatcher.Services.Services
 {
     public class VerifyOtpService : IVerifyOtpService
     {
         private readonly IDatabaseContext _dbContext;
-        public VerifyOtpService(IDatabaseContext dbContext)
+        private readonly IConfiguration _configuration;
+        public VerifyOtpService(IDatabaseContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
+
+        public Task<string> GenerateJwtTokenAsync(DateTime expireDateTime, OtpModel.VerifyOtp.Request request)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["AppSettings:Secret"]);
+            var tokenDescription = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Email, request.Email ?? string.Empty)
+                }),
+                Expires = expireDateTime,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescription);
+            return Task.FromResult(tokenHandler.WriteToken(token));
+        }
+
         public async Task<OtpModel.VerifyOtp.Return> VerifyOtpAsync(OtpModel.VerifyOtp.Request request)
         {
             var verificationResult = new List<OtpModel.VerifyOtp.ReturnData>();
@@ -37,7 +61,7 @@ namespace NewsCatcher.Services.Services
                        verificationResult.Add(new OtpModel.VerifyOtp.ReturnData
                         {
                             Email = reader.GetString("Email"),
-                            IsUsed = reader.GetBoolean("IsUsed")
+                            JwtToken = await GenerateJwtTokenAsync(DateTime.UtcNow.AddMinutes(180), request),
                         });
                     }
                 }

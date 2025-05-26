@@ -10,5 +10,6 @@ namespace NewsCatcher.Services.Interfaces
     public interface IVerifyOtpService
     {
         Task<OtpModel.VerifyOtp.Return> VerifyOtpAsync(OtpModel.VerifyOtp.Request request);
+        Task<string> GenerateJwtTokenAsync( DateTime expireDateTime, OtpModel.VerifyOtp.Request request);
     }
 }
