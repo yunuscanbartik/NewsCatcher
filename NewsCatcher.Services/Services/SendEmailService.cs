@@ -1,18 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MimeKit;
-using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NewsCatcher.Services.Services
 {
     public class SendEmailService : IEmailService
-    {   
+    {
+        //SMTP ayarlarını saklamak için private alanlar
         private readonly string _smtpServer;
         private readonly int _smtpPort;
         private readonly string _smtpUsername;
@@ -59,7 +53,6 @@ namespace NewsCatcher.Services.Services
                 Console.WriteLine($"E-posta gönderilirken hata: {ex.Message}");
                 return false;
             }
-
         }
     }
 }

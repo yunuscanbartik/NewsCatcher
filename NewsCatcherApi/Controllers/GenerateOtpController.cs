@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Interfaces;
+using NewsCatcher.Services.Services;
 
 namespace NewsCatcherApi.Controllers
 {
@@ -10,14 +11,22 @@ namespace NewsCatcherApi.Controllers
     public class GenerateOtpController : ControllerBase
     {
         private readonly IGenerateOtpService _generateOtpService;
-        public GenerateOtpController(IGenerateOtpService generateOtpService)
+        private readonly IVerifyOtpService _verifyOtpService;
+        public GenerateOtpController(IGenerateOtpService generateOtpService, IVerifyOtpService verifyOtpService)
         {
             _generateOtpService = generateOtpService;
+            _verifyOtpService = verifyOtpService;
         }
         [HttpPost("GenerateOtp")]
         public async Task<IActionResult> GenerateOtp(OtpModel.GenerateOtp.Request request)
         {
             var result = await _generateOtpService.GenerateOtpAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("VerifyOtp")]
+        public async Task<IActionResult> VerifyOtpAsync([FromBody] OtpModel.VerifyOtp.Request request)
+        {
+            var result = await _verifyOtpService.VerifyOtpAsync(request);
             return Ok(result);
         }
     }

@@ -32,8 +32,8 @@ namespace NewsCatcher.Services.Services
 
             try
             {
-                using (var reader = await sqlCommand.ExecuteReaderAsync())
-                    if (await reader.ReadAsync())
+                using (var reader = sqlCommand.ExecuteReader())
+                    if (reader.Read())
                     {
                         otp.Add(new OtpModel.GenerateOtp.ReturnData
                         {
