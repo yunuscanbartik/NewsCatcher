@@ -62,6 +62,7 @@ namespace NewsCatcher.Services.Services
                         {
                             Email = reader.GetString("Email"),
                             JwtToken = await GenerateJwtTokenAsync(DateTime.UtcNow.AddMinutes(180), request),
+                            IsUsed = reader.GetBoolean("IsUsed")
                         });
                     }
                 }

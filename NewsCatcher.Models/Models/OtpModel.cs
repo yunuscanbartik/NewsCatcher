@@ -23,7 +23,6 @@ namespace NewsCatcher.Models.Models
             public class ReturnData
             {
                 public string? Email { get; set; }
-                public string? VerificationCode { get; set; }
             }
         }
         public class VerifyOtp

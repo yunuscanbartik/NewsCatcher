@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Interfaces;
 
@@ -8,6 +9,7 @@ namespace NewsCatcherApi.Controllers
     /// Kategorilerle ilgili işlemleri gerçekleştiren API denetleyici sınıfı.
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CategoriesController : ControllerBase
     {

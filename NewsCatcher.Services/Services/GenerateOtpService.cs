@@ -37,8 +37,7 @@ namespace NewsCatcher.Services.Services
                     {
                         otp.Add(new OtpModel.GenerateOtp.ReturnData
                         {
-                            Email = reader.GetString("Email"),
-                            VerificationCode = reader.GetString("VerificationCode")
+                            Email = reader.GetString("Email")
                         });
                         var VerificationCode = reader.GetString("VerificationCode");
                         bool emailSent = await _emailService.SendEmailAsync(

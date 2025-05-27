@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
 builder.Services.AddSingleton<IVerifyOtpService, VerifyOtpService>();
 builder.Services.AddSingleton<IGenerateOtpService, GenerateOtpService>();
@@ -63,7 +63,33 @@ builder.Services.AddAuthentication(x =>
         ClockSkew = TimeSpan.Zero
     };
 });
+builder.Services.AddAuthorization();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "News Catcher API", Version = "v1" });
+    c.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.ApiKey,
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Description = "API anahtarýnýzý buraya girin."
+    });
 
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "apiKey"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 var app = builder.Build();
 
 
