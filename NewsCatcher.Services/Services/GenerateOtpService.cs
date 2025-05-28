@@ -55,8 +55,8 @@ namespace NewsCatcher.Services.Services
                                 ErrorMessage = null,
                                 RequestId = Guid.NewGuid().ToString(),
                                 StatusCode = 200,
-                                RequestTime = DateTime.UtcNow,
-                                ResponseTime = DateTime.UtcNow,
+                                RequestTime = DateTime.Now,
+                                ResponseTime = DateTime.Now,
                                 Data = null
                             };
                         }
@@ -68,8 +68,8 @@ namespace NewsCatcher.Services.Services
                             ErrorMessage = null,
                             RequestId = Guid.NewGuid().ToString(),
                             StatusCode = 200,
-                            RequestTime = DateTime.UtcNow,
-                            ResponseTime = DateTime.UtcNow,
+                            RequestTime = DateTime.Now,
+                            ResponseTime = DateTime.Now,
                             Data = otp
                         };
                     }
@@ -83,8 +83,8 @@ namespace NewsCatcher.Services.Services
                             ErrorMessage = null,
                             RequestId = Guid.NewGuid().ToString(),
                             StatusCode = 200,
-                            RequestTime = DateTime.UtcNow,
-                            ResponseTime = DateTime.UtcNow,
+                            RequestTime = DateTime.Now,
+                            ResponseTime = DateTime.Now,
                             Data = null
                         };
                     }

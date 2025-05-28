@@ -56,12 +56,12 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    while(await reader.ReadAsync())
+                    if(await reader.ReadAsync())
                     {
                        verificationResult.Add(new OtpModel.VerifyOtp.ReturnData
                         {
                             Email = reader.GetString("Email"),
-                            JwtToken = await GenerateJwtTokenAsync(DateTime.UtcNow.AddMinutes(180), request),
+                            JwtToken = await GenerateJwtTokenAsync(DateTime.Now.AddMinutes(180), request),
                             IsUsed = reader.GetBoolean("IsUsed")
                         });
                     }
@@ -74,23 +74,23 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = verificationResult
                 };
             }
-            catch
+            catch(SqlException ex)
             { 
                 return new OtpModel.VerifyOtp.Return
                 {
                     Status = false,
-                    Message = "OTP Doğrulama Başarısız",
+                    Message = ex.Message,
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = verificationResult
                 };
             }

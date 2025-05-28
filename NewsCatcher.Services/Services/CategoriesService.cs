@@ -58,8 +58,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(), // Her işlem için benzersiz bir ID oluştur
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = categories
                 };
             }
@@ -73,8 +73,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = null
                 };
             }
@@ -119,8 +119,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = categories
                 };
             }
@@ -134,8 +134,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
@@ -165,8 +165,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(), // Her işlem için benzersiz bir ID oluştur   
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
             catch (Exception ex)
@@ -179,8 +179,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
@@ -210,8 +210,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(), // Her işlem için benzersiz bir ID oluştur
                     StatusCode = 200, // Başarılı işlem için 200 gerekli
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
             catch (Exception ex)
@@ -224,8 +224,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
@@ -254,8 +254,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(), // Her işlem için benzersiz bir ID oluştur
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
             catch (Exception ex)
@@ -268,8 +268,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }

@@ -50,8 +50,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = newsStatistic
                 };
             }
@@ -65,8 +65,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = ex.Message,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
