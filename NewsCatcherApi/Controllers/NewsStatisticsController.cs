@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Interfaces;
 
 namespace NewsCatcherApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class NewsStatisticsController : ControllerBase
     {
@@ -13,6 +15,11 @@ namespace NewsCatcherApi.Controllers
         {
             _newsStatisticsService = newsService;
         }
+        /// <summary>
+        /// Belli bir habere ait istatistikleri döndürür.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet("GetNewsStatistics")]
         public async Task<IActionResult> GetNewsStatisticsAsync([FromQuery] NewsStatisticsModel.BrowseModel.Request request)
         {

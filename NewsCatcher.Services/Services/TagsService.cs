@@ -48,8 +48,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = tags
                 };
             }
@@ -63,8 +63,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = null
                 };
             }
@@ -108,8 +108,8 @@ namespace NewsCatcher.Services.Services
                         ErrorMessage = null,
                         RequestId = Guid.NewGuid().ToString(),
                         StatusCode = 200,
-                        RequestTime = DateTime.UtcNow,
-                        ResponseTime = DateTime.UtcNow,
+                        RequestTime = DateTime.Now,
+                        ResponseTime = DateTime.Now,
                         Data = tags
                     };
                 }
@@ -123,8 +123,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow,
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now,
                     Data = null
                 };
             }
@@ -155,8 +155,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
              catch (Exception ex)
@@ -169,8 +169,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
@@ -200,8 +200,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
             catch (Exception ex)
@@ -214,8 +214,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
         }
@@ -244,8 +244,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }
             catch (Exception ex)
@@ -258,8 +258,8 @@ namespace NewsCatcher.Services.Services
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),
                     StatusCode = 200,
-                    RequestTime = DateTime.UtcNow,
-                    ResponseTime = DateTime.UtcNow
+                    RequestTime = DateTime.Now,
+                    ResponseTime = DateTime.Now
                 };
             }        
         }       
