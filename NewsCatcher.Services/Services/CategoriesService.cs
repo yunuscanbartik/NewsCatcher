@@ -37,7 +37,7 @@ namespace NewsCatcher.Services.Services
                 {
                     if (reader.HasRows) //Reader da yani prosedürde veri var mı yok mu kontrolü yapıyoruz.
                     {
-                        while (await reader.ReadAsync())
+                        if (await reader.ReadAsync())
                         {
                             categories.Add(new CategoriesModel.BrowseModel.ReturnData //bak burada categories modelinin returnData sınıfını kullanıyorduk ya onun içine dolduruypruz
                             {
@@ -97,7 +97,7 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync()) //using'in amacı kullanıldıktan sonra otomatik kapatılması
                 {
-                    while (await reader.ReadAsync())
+                    if (await reader.ReadAsync())
                     {
                         categories.Add(new CategoriesModel.BrowseModel.ReturnData
                         {

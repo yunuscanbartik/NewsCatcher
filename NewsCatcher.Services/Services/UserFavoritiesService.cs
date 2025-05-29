@@ -28,7 +28,7 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    while (await reader.ReadAsync())
+                    if (await reader.ReadAsync())
                     {
                         favorities.Add(new UserFavoritiesModel.BrowseModel.ReturnData
                         {

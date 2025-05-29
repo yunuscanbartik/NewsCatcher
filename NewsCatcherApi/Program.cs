@@ -25,6 +25,7 @@ builder.Services.AddSingleton<INewsService, NewsService>();
 builder.Services.AddSingleton<INewsStatisticsService, NewsStatisticsService>();
 builder.Services.AddSingleton<INotificationService, NotificationService>();
 builder.Services.AddSingleton<IUserFavoritiesService, UserFavoritiesService>();
+builder.Services.AddSingleton<IUsersService, UsersService>();
 
 builder.Services.AddSwaggerGen(swagger =>
 {

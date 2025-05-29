@@ -32,7 +32,7 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                        while (await reader.ReadAsync())
+                        if (await reader.ReadAsync())
                         {
                             notifications.Add(new NotificationModel.BrowseModel.ReturnData
                             {
