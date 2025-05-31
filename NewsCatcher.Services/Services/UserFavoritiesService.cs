@@ -94,7 +94,7 @@ namespace NewsCatcher.Services.Services
                     ResponseTime = DateTime.Now
                 };
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 return new UserFavoritiesModel.CreateModel.Return
                 {
@@ -135,7 +135,7 @@ namespace NewsCatcher.Services.Services
                     ResponseTime = DateTime.Now
                 };
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 return new UserFavoritiesModel.UpdateModel.Return
                 {
@@ -174,7 +174,7 @@ namespace NewsCatcher.Services.Services
                     ResponseTime = DateTime.Now
                 };
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 return new UserFavoritiesModel.DeleteModel.Return
                 {

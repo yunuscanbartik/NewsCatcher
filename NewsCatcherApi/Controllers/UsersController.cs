@@ -20,5 +20,29 @@ namespace NewsCatcherApi.Controllers
             var result = await _usersService.BrowseUsersAsync(request);
             return Ok(result);
         }
+        [HttpGet("GetUserById")]
+        public async Task<IActionResult> GetUserByIdAsync([FromQuery] UsersModel.BrowseModel.Request request)
+        {
+            var result = await _usersService.BrowseUsersAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUserAsync([FromBody] UsersModel.CreateModel.Request request)
+        {
+            var result = await _usersService.AddUserAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateUserAsync([FromBody] UsersModel.UpdateModel.Request request)
+        {
+            var result = await _usersService.UpdateUserAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("DeleteUser")]
+        public async Task<IActionResult> DeleteUserAsync([FromBody] UsersModel.DeleteModel.Request request)
+        {
+            var result = await _usersService.DeleteUserAsync(request);
+            return Ok(result);
+        }
     }
 }

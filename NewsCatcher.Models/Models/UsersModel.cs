@@ -28,6 +28,26 @@ namespace NewsCatcher.Models.Models
                 public DateTime? UpdatedDate { get; set; }
             }
         }
+        public class BrowseByIdModel
+        {
+            public class Request
+            {
+                public int? UserId { get; set; }
+            }
+            public class Return : ReturnModel
+            {
+                public List<ReturnData?> Data { get; set; }
+            }
+            public class ReturnData
+            {
+                public int? UserId { get; set; }
+                public string? UserName { get; set; }
+                public string? Email { get; set; }
+                public int? RoleId { get; set; }
+                public DateTime? CreatedDate { get; set; }
+                public DateTime? UpdatedDate { get; set; }
+            }
+        }
         public class CreateModel
         {
             public class Request
@@ -38,7 +58,7 @@ namespace NewsCatcher.Models.Models
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
@@ -61,7 +81,7 @@ namespace NewsCatcher.Models.Models
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
@@ -81,7 +101,7 @@ namespace NewsCatcher.Models.Models
             }
             public class Return : ReturnModel
             {
-                public ReturnData? Data { get; set; }
+                public List<ReturnData?> Data { get; set; }
             }
             public class ReturnData
             {
