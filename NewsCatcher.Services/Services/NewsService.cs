@@ -31,7 +31,7 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    while (await reader.ReadAsync())
+                    if (await reader.ReadAsync())
                         news.Add(new NewsModel.BrowseModel.ReturnData
                         {
                             NewsId = reader.GetInt32("NewsId"),
@@ -92,7 +92,7 @@ namespace NewsCatcher.Services.Services
             try
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
-                    while (await reader.ReadAsync())
+                    if (await reader.ReadAsync())
                     {
                         news.Add(new NewsModel.BrowseModel.ReturnData
                         {

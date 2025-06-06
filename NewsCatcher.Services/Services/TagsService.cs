@@ -30,7 +30,7 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    while (await reader.ReadAsync())
+                    if (await reader.ReadAsync())
                     {
                         tags.Add(new TagsModel.BrowseModel.ReturnData
                         {
@@ -90,7 +90,7 @@ namespace NewsCatcher.Services.Services
                 {
                     if (reader.HasRows)
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             tags.Add(new TagsModel.BrowseModel.ReturnData
                             {
