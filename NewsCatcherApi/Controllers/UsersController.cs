@@ -20,10 +20,10 @@ namespace NewsCatcherApi.Controllers
             var result = await _usersService.BrowseUsersAsync(request);
             return Ok(result);
         }
-        [HttpGet("GetUserById")]
-        public async Task<IActionResult> GetUserByIdAsync([FromQuery] UsersModel.BrowseModel.Request request)
+        [HttpGet("BrowseUserById")]
+        public async Task<IActionResult> BrowseUsersByIdAsync([FromQuery] UsersModel.BrowseByIdModel.Request request)
         {
-            var result = await _usersService.BrowseUsersAsync(request);
+            var result = await _usersService.BrowseUsersByIdAsync(request);
             return Ok(result);
         }
         [HttpPost("AddUser")]
@@ -32,13 +32,13 @@ namespace NewsCatcherApi.Controllers
             var result = await _usersService.AddUserAsync(request);
             return Ok(result);
         }
-        [HttpPost("UpdateUser")]
+        [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UsersModel.UpdateModel.Request request)
         {
             var result = await _usersService.UpdateUserAsync(request);
             return Ok(result);
         }
-        [HttpPost("DeleteUser")]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUserAsync([FromBody] UsersModel.DeleteModel.Request request)
         {
             var result = await _usersService.DeleteUserAsync(request);
