@@ -22,25 +22,27 @@ namespace NewsCatcherBackgroundService
             _configuration = configuration;
             _rssFeedService = rssFeedService;
         }
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var feedUrl = _configuration.GetValue<string>("Rss:FeedUrl:BBC"); 
+            var feedUrl = _configuration.GetValue<string>("Rss:FeedUrl:BBC");
+            try
+            {
+                _logger.Info("RssBackgroundService RSS verilerini çekiyor...");
 
+                var rssItems = await _rssFeedService.GetRssItemsAsync(feedUrl);
+                var mappedData = await _rssFeedService.MapToReturnDataAsync(rssItems);
+
+                var savedData = await _rssFeedService.SaveToDatabaseAsync(mappedData);
+                _logger.Info($"{savedData.Count} haber başarıyla veritabanına kaydedildi.");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "RssBackgroundService çalışırken hata oluştu");
+            }
             while (!stoppingToken.IsCancellationRequested)
             {
-                try
-                {
-                    _logger.Info("RssBackgroundService çalışıyor");
-                    var rssItems = _rssFeedService.GetRssItemsAsync(feedUrl);
-                    if (rssItems != null)
-                    {
-                        _logger.Info("RSS alınamadı.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Error(ex, "RssBackgroundService çalışırken hata oluştu");
-                }
+                
             }
             throw new NotImplementedException("RssBackgroundService henüz uygulanmadı. Lütfen uygulamayı tamamlayın.");
         }

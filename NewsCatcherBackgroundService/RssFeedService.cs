@@ -1,13 +1,16 @@
-﻿using NewsCatcher.Models.Models;
+﻿using Microsoft.Data.SqlClient;
+using NewsCatcher.Models.Models;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using static NewsCatcher.Models.Models.NewsModel.BBCModel;
 
 namespace NewsCatcherBackgroundService
 {
@@ -80,6 +83,41 @@ namespace NewsCatcherBackgroundService
                 _logger.Error(ex, ex.Message);
             }
             return returnDataList;
+        }
+
+        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.BrowseModel.ReturnData> returnDataList)
+        {
+            var savedDataList = new List<NewsModel.CreateModel.ReturnData>();
+            var sqlConnection = _dbContext.DatabaseConnection();
+            var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            try
+            {
+                foreach (var item in returnDataList)
+                {
+                    sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
+                    sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
+                    sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
+                    sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId ?? 1); 
+                    sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
+                    var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    sqlCommand.Parameters.Add(newsIdParam);
+                    await sqlCommand.ExecuteNonQueryAsync();
+                }
+                _logger.Info("Veritabanına kaydedilen haber sayısı: {Count}", savedDataList.Count);
+                return savedDataList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Veritabanına kaydetme işlemi sırasında hata oluştu.");
+                return savedDataList;
+            }
         }
     }
 }
