@@ -56,23 +56,23 @@ namespace NewsCatcherBackgroundService
         /// </summary>
         /// <param name="bbcItems"></param>
         /// <returns></returns>
-        public async Task<List<NewsModel.BrowseModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems)
+        public async Task<List<NewsModel.CreateModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems)
         {
-            var returnDataList = new List<NewsModel.BrowseModel.ReturnData>();
+            var returnDataList = new List<NewsModel.CreateModel.ReturnData>();
             try
             {
                 foreach (var item in bbcItems)
                 {
-                    var returnData = new NewsModel.BrowseModel.ReturnData
+                    var returnData = new NewsModel.CreateModel.ReturnData
                     {
                         NewsId = 0,
                         Title = item.Title,
                         Content = item.Description,
                         Summary = item.Description,
                         CategoryId = 0,
-                        ShareDate = item.PubDate,
+                        ShareDate = DateTime.Now,
                         SourceName = "BBC",
-                        CreatedDate = item.PubDate,
+                        CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now
                     };
                     returnDataList.Add(returnData);
@@ -85,7 +85,7 @@ namespace NewsCatcherBackgroundService
             return returnDataList;
         }
 
-        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.BrowseModel.ReturnData> returnDataList)
+        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList)
         {
             var savedDataList = new List<NewsModel.CreateModel.ReturnData>();
             var sqlConnection = _dbContext.DatabaseConnection();
