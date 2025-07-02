@@ -11,7 +11,7 @@ namespace NewsCatcher.Services.Interfaces
     public interface IRssFeedService
     {
         Task<List<NewsModel.BBCModel.Item>> GetRssItemsAsync(string feedUrl);
-        Task<List<NewsModel.CreateModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems);
-        Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList);
+        Task<List<NewsModel.BrowseModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems);
+        Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.BrowseModel.ReturnData> returnDataList);
     }
 }

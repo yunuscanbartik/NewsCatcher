@@ -40,6 +40,10 @@ namespace NewsCatcherBackgroundService
             {
                 _logger.Error(ex, "RssBackgroundService çalışırken hata oluştu");
             }
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                
+            }
             throw new NotImplementedException("RssBackgroundService henüz uygulanmadı. Lütfen uygulamayı tamamlayın.");
         }
         public override async Task StartAsync(CancellationToken cancellationToken)

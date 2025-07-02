@@ -108,59 +108,141 @@ namespace NewsCatcher.Models.Models
         }
         public class BBCModel
         {
-            [XmlRoot("rss", Namespace = "")] // XML'in kök elementi <rss>. Namespace="" ile varsayılan ad alanını belirtir.
-            public class Rss
+            [XmlRoot(ElementName = "image")]
+            public class Image
             {
-                [XmlElement("channel")] // <rss> içindeki <channel> elementi.
-                public Channel Channel { get; set; } // Channel nesnesini tutar.
+
+                [XmlElement(ElementName = "url")]
+                public string Url { get; set; }
+
+                [XmlElement(ElementName = "title")]
+                public string Title { get; set; }
+
+                [XmlElement(ElementName = "link")]
+                public string Link { get; set; }
             }
 
-            public class Channel
+            [XmlRoot(ElementName = "link")]
+            public class Link
             {
-                [XmlElement("item")] // <channel> içindeki <item> elementleri (haberler).
-                public List<Item> Item { get; set; } // Haber öğelerinin listesi.
+
+                [XmlAttribute(AttributeName = "href")]
+                public string Href { get; set; }
+
+                [XmlAttribute(AttributeName = "rel")]
+                public string Rel { get; set; }
+
+                [XmlAttribute(AttributeName = "type")]
+                public string Type { get; set; }
             }
 
-            public class Item
-            {
-                [XmlElement("title")] // <item> içindeki <title> elementi.
-                public string Title { get; set; } // Haber başlığı (ör. "Örnek Haber Başlığı").
-
-                [XmlElement("description")] // <item> içindeki <description> elementi.
-                public string Description { get; set; } // Haber açıklaması (ör. "Örnek haber açıklaması...").
-
-                [XmlElement("link")] // <item> içindeki <link> elementi.
-                public string Link { get; set; } // Haberin URL'si (ör. "https://www.bbc.com/turkce/haber").
-
-                [XmlElement("guid")] // <item> içindeki <guid> elementi.
-                public Guid Guid { get; set; } // Haberin benzersiz kimliği.
-
-                [XmlElement("pubDate")] // <item> içindeki <pubDate> elementi.
-                public string PubDate { get; set; } // Haberin yayın tarihi (ör. "Mon, 30 Jun 2025 13:00:00 GMT").
-
-                [XmlElement("thumbnail", Namespace = "http://search.yahoo.com/mrss/")] // <item> içindeki <media:thumbnail> elementi, media ad alanıyla.
-                public Thumbnail Thumbnail { get; set; } // Haberin küçük resmi.
-            }
-
+            [XmlRoot(ElementName = "guid")]
             public class Guid
             {
-                [XmlAttribute("isPermaLink")] // <guid> içindeki isPermaLink özniteliği (ör. "true").
-                public string IsPermaLink { get; set; } // GUID'nin permalink olup olmadığını belirtir.
 
-                [XmlText] // <guid> elementinin metin içeriği.
-                public string Value { get; set; } // GUID değeri (ör. "https://www.bbc.com/turkce/haber").
+                [XmlAttribute(AttributeName = "isPermaLink")]
+                public bool IsPermaLink { get; set; }
+
+                [XmlText]
+                public string Text { get; set; }
             }
 
+            [XmlRoot(ElementName = "thumbnail")]
             public class Thumbnail
             {
-                [XmlAttribute("width")] // <media:thumbnail> içindeki width özniteliği.
-                public int Width { get; set; } // Küçük resmin genişliği (ör. 120).
 
-                [XmlAttribute("height")] // <media:thumbnail> içindeki height özniteliği.
-                public int Height { get; set; } // Küçük resmin yüksekliği (ör. 68).
+                [XmlAttribute(AttributeName = "width")]
+                public int Width { get; set; }
 
-                [XmlAttribute("url")] // <media:thumbnail> içindeki url özniteliği.
-                public string Url { get; set; } // Küçük resmin URL'si (ör. "https://ichef.bbci.co.uk/images/haber.jpg").
+                [XmlAttribute(AttributeName = "height")]
+                public int Height { get; set; }
+
+                [XmlAttribute(AttributeName = "url")]
+                public string Url { get; set; }
+            }
+
+            [XmlRoot(ElementName = "item")]
+            public class Item
+            {
+
+                [XmlElement(ElementName = "title")]
+                public string Title { get; set; }
+
+                [XmlElement(ElementName = "description")]
+                public string Description { get; set; }
+
+                [XmlElement(ElementName = "link")]
+                public string Link { get; set; }
+
+                [XmlElement(ElementName = "guid")]
+                public Guid Guid { get; set; }
+
+                [XmlElement(ElementName = "pubDate")]
+                public DateTime PubDate { get; set; }
+
+                [XmlElement(ElementName = "thumbnail")]
+                public Thumbnail Thumbnail { get; set; }
+            }
+
+            [XmlRoot(ElementName = "channel")]
+            public class Channel
+            {
+
+                [XmlElement(ElementName = "title")]
+                public string Title { get; set; }
+
+                [XmlElement(ElementName = "description")]
+                public string Description { get; set; }
+
+                [XmlElement(ElementName = "link")]
+                public List<string> Link { get; set; }
+
+                [XmlElement(ElementName = "image")]
+                public Image Image { get; set; }
+
+                [XmlElement(ElementName = "generator")]
+                public string Generator { get; set; }
+
+                [XmlElement(ElementName = "lastBuildDate")]
+                public DateTime LastBuildDate { get; set; }
+
+                [XmlElement(ElementName = "copyright")]
+                public string Copyright { get; set; }
+
+                [XmlElement(ElementName = "language")]
+                public string Language { get; set; }
+
+                [XmlElement(ElementName = "ttl")]
+                public int Ttl { get; set; }
+
+                [XmlElement(ElementName = "item")]
+                public List<Item> Item { get; set; }
+            }
+
+            [XmlRoot(ElementName = "rss")]
+            public class Rss
+            {
+
+                [XmlElement(ElementName = "channel")]
+                public Channel Channel { get; set; }
+
+                [XmlAttribute(AttributeName = "dc")]
+                public string Dc { get; set; }
+
+                [XmlAttribute(AttributeName = "content")]
+                public string Content { get; set; }
+
+                [XmlAttribute(AttributeName = "atom")]
+                public string Atom { get; set; }
+
+                [XmlAttribute(AttributeName = "version")]
+                public double Version { get; set; }
+
+                [XmlAttribute(AttributeName = "media")]
+                public string Media { get; set; }
+
+                [XmlText]
+                public string Text { get; set; }
             }
         }
     }
