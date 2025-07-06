@@ -108,141 +108,87 @@ namespace NewsCatcher.Models.Models
         }
         public class BBCModel
         {
-            [XmlRoot(ElementName = "image")]
-            public class Image
-            {
-
-                [XmlElement(ElementName = "url")]
-                public string Url { get; set; }
-
-                [XmlElement(ElementName = "title")]
-                public string Title { get; set; }
-
-                [XmlElement(ElementName = "link")]
-                public string Link { get; set; }
-            }
-
-            [XmlRoot(ElementName = "link")]
-            public class Link
-            {
-
-                [XmlAttribute(AttributeName = "href")]
-                public string Href { get; set; }
-
-                [XmlAttribute(AttributeName = "rel")]
-                public string Rel { get; set; }
-
-                [XmlAttribute(AttributeName = "type")]
-                public string Type { get; set; }
-            }
-
-            [XmlRoot(ElementName = "guid")]
-            public class Guid
-            {
-
-                [XmlAttribute(AttributeName = "isPermaLink")]
-                public bool IsPermaLink { get; set; }
-
-                [XmlText]
-                public string Text { get; set; }
-            }
-
-            [XmlRoot(ElementName = "thumbnail")]
-            public class Thumbnail
-            {
-
-                [XmlAttribute(AttributeName = "width")]
-                public int Width { get; set; }
-
-                [XmlAttribute(AttributeName = "height")]
-                public int Height { get; set; }
-
-                [XmlAttribute(AttributeName = "url")]
-                public string Url { get; set; }
-            }
-
-            [XmlRoot(ElementName = "item")]
-            public class Item
-            {
-
-                [XmlElement(ElementName = "title")]
-                public string Title { get; set; }
-
-                [XmlElement(ElementName = "description")]
-                public string Description { get; set; }
-
-                [XmlElement(ElementName = "link")]
-                public string Link { get; set; }
-
-                [XmlElement(ElementName = "guid")]
-                public Guid Guid { get; set; }
-
-                [XmlElement(ElementName = "pubDate")]
-                public DateTime PubDate { get; set; }
-
-                [XmlElement(ElementName = "thumbnail")]
-                public Thumbnail Thumbnail { get; set; }
-            }
-
-            [XmlRoot(ElementName = "channel")]
-            public class Channel
-            {
-
-                [XmlElement(ElementName = "title")]
-                public string Title { get; set; }
-
-                [XmlElement(ElementName = "description")]
-                public string Description { get; set; }
-
-                [XmlElement(ElementName = "link")]
-                public List<string> Link { get; set; }
-
-                [XmlElement(ElementName = "image")]
-                public Image Image { get; set; }
-
-                [XmlElement(ElementName = "generator")]
-                public string Generator { get; set; }
-
-                [XmlElement(ElementName = "lastBuildDate")]
-                public DateTime LastBuildDate { get; set; }
-
-                [XmlElement(ElementName = "copyright")]
-                public string Copyright { get; set; }
-
-                [XmlElement(ElementName = "language")]
-                public string Language { get; set; }
-
-                [XmlElement(ElementName = "ttl")]
-                public int Ttl { get; set; }
-
-                [XmlElement(ElementName = "item")]
-                public List<Item> Item { get; set; }
-            }
-
             [XmlRoot(ElementName = "rss")]
             public class Rss
             {
-
-                [XmlElement(ElementName = "channel")]
+                [XmlElement("channel")]
                 public Channel Channel { get; set; }
 
-                [XmlAttribute(AttributeName = "dc")]
-                public string Dc { get; set; }
+                [XmlAttribute("version")]
+                public string Version { get; set; }
+            }
 
-                [XmlAttribute(AttributeName = "content")]
-                public string Content { get; set; }
+            public class Channel
+            {
+                [XmlElement("title")]
+                public string Title { get; set; }
 
-                [XmlAttribute(AttributeName = "atom")]
-                public string Atom { get; set; }
+                [XmlElement("description")]
+                public string Description { get; set; }
 
-                [XmlAttribute(AttributeName = "version")]
-                public double Version { get; set; }
+                [XmlElement("link")]
+                public string Link { get; set; }
 
-                [XmlAttribute(AttributeName = "media")]
-                public string Media { get; set; }
+                [XmlElement("lastBuildDate")]
+                public string LastBuildDateStr { get; set; }
 
-                [XmlText]
-                public string Text { get; set; }
+                [XmlIgnore]
+                public DateTime LastBuildDate
+                {
+                    get
+                    {
+                        return DateTime.ParseExact(LastBuildDateStr, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+                            System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    set { LastBuildDateStr = value.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"); }
+                }
+
+                [XmlElement("item")]
+                public List<Item> Item { get; set; }
+            }
+
+            public class Item
+            {
+                [XmlElement("title")]
+                public string Title { get; set; }
+
+                [XmlElement("description")]
+                public string Description { get; set; }
+
+                [XmlElement("link")]
+                public string Link { get; set; }
+
+                [XmlElement("pubDate")]
+                public string PubDateStr { get; set; }
+
+                [XmlIgnore]
+                public DateTime PubDate
+                {
+                    get
+                    {
+                        return DateTime.ParseExact(PubDateStr, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+                            System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    set { PubDateStr = value.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"); }
+                }
+
+                [XmlElement("guid")]
+                public string Guid { get; set; }
+
+                [XmlElement("thumbnail", Namespace = "http://search.yahoo.com/mrss/")]
+                public Thumbnail? Thumbnail { get; set; }
+            }
+
+            public class Thumbnail
+            {
+                [XmlAttribute("url")]
+                public string Url { get; set; }
+
+                [XmlAttribute("width")]
+                public int Width { get; set; }
+
+                [XmlAttribute("height")]
+                public int Height { get; set; }
             }
         }
     }

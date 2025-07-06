@@ -38,9 +38,8 @@ namespace NewsCatcherBackgroundService
                     var serializer = new XmlSerializer(typeof(NewsModel.BBCModel.Rss)); // xml i parçalayarak nesneye dönüştürmek için XmlSerializer kullanıyorum.
                     using (var stringReader = new StringReader(xmlContent)) // xml içeriğini string olarak okuyabilmek için StringReader kullanıyorum.
                     {
-                        var rss = (NewsModel.BBCModel.Rss)serializer.Deserialize(stringReader); // xml içeriğini NewsModel.BBCModel.Rss tipine deserialize ediyorum.
-                        var items = rss.Channel.Item; // rss içindeki channel ın item kısmını alıyorum. Bu kısım haberlerin bulunduğu kısım.
-                        return items; // haberlerin listesini döndürüyorum.
+                        var rss = (NewsModel.BBCModel.Rss)serializer.Deserialize(stringReader);
+                        return rss.Channel?.Item;
                     }
                 }
             }
@@ -56,14 +55,14 @@ namespace NewsCatcherBackgroundService
         /// </summary>
         /// <param name="bbcItems"></param>
         /// <returns></returns>
-        public async Task<List<NewsModel.BrowseModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems)
+        public async Task<List<NewsModel.CreateModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems)
         {
-            var returnDataList = new List<NewsModel.BrowseModel.ReturnData>();
+            var returnDataList = new List<NewsModel.CreateModel.ReturnData>();
             try
             {
                 foreach (var item in bbcItems)
                 {
-                    var returnData = new NewsModel.BrowseModel.ReturnData
+                    var returnData = new NewsModel.CreateModel.ReturnData
                     {
                         NewsId = 0,
                         Title = item.Title,
@@ -85,9 +84,8 @@ namespace NewsCatcherBackgroundService
             return returnDataList;
         }
 
-        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.BrowseModel.ReturnData> returnDataList)
+        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList)
         {
-            var savedDataList = new List<NewsModel.CreateModel.ReturnData>();
             var sqlConnection = _dbContext.DatabaseConnection();
             var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection)
             {
@@ -108,15 +106,17 @@ namespace NewsCatcherBackgroundService
                     };
                     sqlCommand.Parameters.Add(newsIdParam);
                     await sqlCommand.ExecuteNonQueryAsync();
+
+                    item.NewsId = (int)newsIdParam.Value;
                 }
-                _logger.Info("Veritabanına kaydedilen haber sayısı: {Count}", savedDataList.Count);
-                return savedDataList;
+                _logger.Info("Veritabanına kaydedilen haber sayısı: {Count}", returnDataList.Count);
+                return returnDataList;
 
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Veritabanına kaydetme işlemi sırasında hata oluştu.");
-                return savedDataList;
+                return returnDataList;
             }
         }
     }

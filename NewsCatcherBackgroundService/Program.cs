@@ -7,8 +7,9 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddSingleton(builder.Configuration);
 
-builder.Services.AddScoped<IRssFeedService, RssFeedService>();
+builder.Services.AddSingleton<IRssFeedService, RssFeedService>();
 builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
+builder.Services.AddLogging(logging => logging.AddConsole());
 
 builder.Services.AddHostedService<RssBackgroundService>();
 

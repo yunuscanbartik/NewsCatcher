@@ -25,25 +25,26 @@ namespace NewsCatcherBackgroundService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var feedUrl = _configuration.GetValue<string>("Rss:FeedUrl:BBC");
-            try
-            {
-                _logger.Info("RssBackgroundService RSS verilerini çekiyor...");
-
-                var rssItems = await _rssFeedService.GetRssItemsAsync(feedUrl);
-                var mappedData = await _rssFeedService.MapToReturnDataAsync(rssItems);
-
-                var savedData = await _rssFeedService.SaveToDatabaseAsync(mappedData);
-                _logger.Info($"{savedData.Count} haber başarıyla veritabanına kaydedildi.");
-
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "RssBackgroundService çalışırken hata oluştu");
-            }
             while (!stoppingToken.IsCancellationRequested)
             {
-                
+                try
+                {
+                    _logger.Info("RssBackgroundService RSS verilerini çekiyor...");
+
+                    var rssItems = await _rssFeedService.GetRssItemsAsync(feedUrl);
+                    var mappedData = await _rssFeedService.MapToReturnDataAsync(rssItems);
+
+                    var savedData = await _rssFeedService.SaveToDatabaseAsync(mappedData);
+                    _logger.Info($"{savedData.Count} haber başarıyla veritabanına kaydedildi.");
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "RssBackgroundService çalışırken hata oluştu");
+                }
+                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
             }
+
             throw new NotImplementedException("RssBackgroundService henüz uygulanmadı. Lütfen uygulamayı tamamlayın.");
         }
         public override async Task StartAsync(CancellationToken cancellationToken)
