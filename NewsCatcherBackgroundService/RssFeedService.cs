@@ -95,6 +95,7 @@ namespace NewsCatcherBackgroundService
             {
                 foreach (var item in returnDataList)
                 {
+                    sqlCommand.Parameters.Clear();
                     sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
                     sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
                     sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
