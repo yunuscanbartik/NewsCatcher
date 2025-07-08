@@ -31,19 +31,22 @@ namespace NewsCatcher.Services.Services
             {
                 using (var reader = await sqlCommand.ExecuteReaderAsync())
                 {
-                    if (await reader.ReadAsync())
-                        news.Add(new NewsModel.BrowseModel.ReturnData
-                        {
-                            NewsId = reader.GetInt32("NewsId"),
-                            Title = reader.GetString("Title"),
-                            Content = reader.GetString("Content"),
-                            Summary = reader.GetString("Summary"),
-                            CategoryId = reader.GetInt32("CategoryId"),
-                            ShareDate = reader.GetDateTime("ShareDate"),
-                            SourceName = reader.GetString("SourceName"),
-                            CreatedDate = reader.GetDateTime("CreatedDate"),
-                            UpdatedDate = reader.GetDateTime("UpdatedDate")
-                        });
+                    while (await reader.ReadAsync())
+                    {
+                        if (await reader.ReadAsync())
+                            news.Add(new NewsModel.BrowseModel.ReturnData
+                            {
+                                NewsId = reader.GetInt32("NewsId"),
+                                Title = reader.GetString("Title"),
+                                Content = reader.GetString("Content"),
+                                Summary = reader.GetString("Summary"),
+                                CategoryId = reader["CategoryId"] == DBNull.Value ? (int?)null : reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                ShareDate = reader.GetDateTime("ShareDate"),
+                                SourceName = reader.GetString("SourceName"),
+                                CreatedDate = reader.GetDateTime("CreatedDate"),
+                                UpdatedDate = reader.GetDateTime("UpdatedDate")
+                            });
+                    }               
                 }
                 return new NewsModel.BrowseModel.Return
                 {
@@ -100,7 +103,7 @@ namespace NewsCatcher.Services.Services
                             Title = reader.GetString("Title"),
                             Content = reader.GetString("Content"),
                             Summary = reader.GetString("Summary"),
-                            CategoryId = reader.GetInt32("CategoryId"),
+                            CategoryId = reader["CategoryId"] == DBNull.Value ? (int?)null : reader.GetInt32(reader.GetOrdinal("CategoryId")),
                             ShareDate = reader.GetDateTime("ShareDate"),
                             SourceName = reader.GetString("SourceName"),
                             CreatedDate = reader.GetDateTime("CreatedDate"),

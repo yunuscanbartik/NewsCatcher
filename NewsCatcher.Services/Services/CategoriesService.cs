@@ -41,7 +41,7 @@ namespace NewsCatcher.Services.Services
                         {
                             categories.Add(new CategoriesModel.BrowseModel.ReturnData //bak burada categories modelinin returnData sınıfını kullanıyorduk ya onun içine dolduruypruz
                             {
-                                CategorieId = reader.GetInt32("CategorieId"),
+                                CategorieId = reader["CategoryId"] == DBNull.Value ? (int?)null : reader.GetInt32(reader.GetOrdinal("CategoryId")),
                                 CategorieName = reader.GetString("CategorieName"),
                                 CategorieDescription = reader.GetString("CategorieDescription"),
                                 CreatedDate = reader.GetDateTime("CreatedDate"),
@@ -101,7 +101,7 @@ namespace NewsCatcher.Services.Services
                     {
                         categories.Add(new CategoriesModel.BrowseModel.ReturnData
                         {
-                            CategorieId = reader.GetInt32("CategorieId"),
+                            CategorieId = reader["CategoryId"] == DBNull.Value ? (int?)null : reader.GetInt32(reader.GetOrdinal("CategoryId")),
                             CategorieName = reader.GetString("CategorieName"),
                             CategorieDescription = reader.GetString("CategorieDescription"),
                             CreatedDate = reader.GetDateTime("CreatedDate"),
