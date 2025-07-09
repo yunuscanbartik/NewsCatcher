@@ -20,10 +20,10 @@ namespace NewsCatcherBackgroundService
     public class RssFeedService : IRssFeedService
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-        private readonly IDatabaseContext _dbContext; 
+        private readonly IDatabaseContext _dbContext;
         public RssFeedService(IDatabaseContext dbContext)
         {
-            _dbContext = dbContext; 
+            _dbContext = dbContext;
         }
         public async Task<List<NewsModel.BBCModel.Item>> GetRssItemsAsync(string feedUrl) //bir url alır ve içindeki haberleri list olarak döner.
         {
@@ -87,28 +87,28 @@ namespace NewsCatcherBackgroundService
         public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList)
         {
             var sqlConnection = _dbContext.DatabaseConnection();
-            var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
             try
             {
                 foreach (var item in returnDataList)
                 {
-                    sqlCommand.Parameters.Clear();
-                    sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
-                    sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
-                    sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
-                    sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId ?? 1); 
-                    sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
-                    var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    sqlCommand.Parameters.Add(newsIdParam);
-                    await sqlCommand.ExecuteNonQueryAsync();
 
-                    item.NewsId = (int)newsIdParam.Value;
+                    using (var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId ?? 1);
+                        sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
+                        var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        sqlCommand.Parameters.Add(newsIdParam);
+                        await sqlCommand.ExecuteNonQueryAsync();
+                        item.NewsId = (int)newsIdParam.Value;
+                    }
+
                 }
                 _logger.Info("Veritabanına kaydedilen haber sayısı: {Count}", returnDataList.Count);
                 return returnDataList;
