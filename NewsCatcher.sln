@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCatcher.Models", "NewsC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCatcher.Services", "NewsCatcher.Services\NewsCatcher.Services.csproj", "{ECC1CA24-1338-4BFB-97BB-FCD76B9126BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsCatcherBackgroundService", "NewsCatcherBackgroundService\NewsCatcherBackgroundService.csproj", "{12B2E093-D654-4473-8002-C6BF53592B0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ECC1CA24-1338-4BFB-97BB-FCD76B9126BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECC1CA24-1338-4BFB-97BB-FCD76B9126BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECC1CA24-1338-4BFB-97BB-FCD76B9126BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B2E093-D654-4473-8002-C6BF53592B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B2E093-D654-4473-8002-C6BF53592B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B2E093-D654-4473-8002-C6BF53592B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B2E093-D654-4473-8002-C6BF53592B0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
