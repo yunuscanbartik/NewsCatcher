@@ -25,6 +25,9 @@ namespace NewsCatcher.Models.Models
                 public string? SourceName { get; set; }
                 public DateTime? CreatedDate { get; set; }
                 public DateTime? UpdatedDate { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
         }
         public class CreateModel
@@ -36,6 +39,9 @@ namespace NewsCatcher.Models.Models
                 public string? Summary { get; set; }
                 public int? CategoryId { get; set; }
                 public string? SourceName { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -52,6 +58,9 @@ namespace NewsCatcher.Models.Models
                 public string? SourceName { get; set; }
                 public DateTime? CreatedDate { get; set; }
                 public DateTime? UpdatedDate { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
         }
 
@@ -65,6 +74,9 @@ namespace NewsCatcher.Models.Models
                 public string? Summary { get; set; }
                 public int? CategoryId { get; set; }
                 public string? SourceName { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
             public class Return : ReturnModel
             {
@@ -81,6 +93,9 @@ namespace NewsCatcher.Models.Models
                 public string? SourceName { get; set; }
                 public DateTime? CreatedDate { get; set; }
                 public DateTime? UpdatedDate { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
         }
         public class DeleteModel
@@ -104,6 +119,9 @@ namespace NewsCatcher.Models.Models
                 public string? SourceName { get; set; }
                 public DateTime? CreatedDate { get; set; }
                 public DateTime? UpdatedDate { get; set; }
+                public string? ThumbnailUrl { get; set; }
+                public string? Link { get; set; }
+                public string? GuId { get; set; }
             }
         }
         public class BBCModel

@@ -72,7 +72,10 @@ namespace NewsCatcherBackgroundService
                         ShareDate = item.PubDate,
                         SourceName = "BBC",
                         CreatedDate = item.PubDate,
-                        UpdatedDate = DateTime.Now
+                        UpdatedDate = DateTime.Now,
+                        ThumbnailUrl = item.Thumbnail.Url,
+                        Link = item.Link,
+                        GuId = item.Guid
                     };
                     returnDataList.Add(returnData);
                 }
@@ -98,8 +101,11 @@ namespace NewsCatcherBackgroundService
                         sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
                         sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
                         sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId ?? 1);
+                        sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId.HasValue && item.CategoryId != 0 ? (object)item.CategoryId : DBNull.Value);
                         sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@ThumbnailUrl", (object)item.ThumbnailUrl?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@GuId", (object)item.GuId?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Link", (object)item.Link?.Trim() ?? DBNull.Value);
                         var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
                         {
                             Direction = ParameterDirection.Output

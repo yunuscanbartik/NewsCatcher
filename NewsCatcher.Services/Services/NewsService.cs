@@ -44,7 +44,10 @@ namespace NewsCatcher.Services.Services
                                 ShareDate = reader.GetDateTime("ShareDate"),
                                 SourceName = reader.GetString("SourceName"),
                                 CreatedDate = reader.GetDateTime("CreatedDate"),
-                                UpdatedDate = reader.GetDateTime("UpdatedDate")
+                                UpdatedDate = reader.GetDateTime("UpdatedDate"),
+                                ThumbnailUrl = reader["ThumbnailUrl"] == DBNull.Value ? null : reader.GetString("ThumbnailUrl"),
+                                Link = reader["Link"] == DBNull.Value ? null : reader.GetString("Link"),
+                                GuId = reader["GuId"] == DBNull.Value ? null : reader.GetString("GuId")
                             });
                     }               
                 }
@@ -107,7 +110,10 @@ namespace NewsCatcher.Services.Services
                             ShareDate = reader.GetDateTime("ShareDate"),
                             SourceName = reader.GetString("SourceName"),
                             CreatedDate = reader.GetDateTime("CreatedDate"),
-                            UpdatedDate = reader.GetDateTime("UpdatedDate")
+                            UpdatedDate = reader.GetDateTime("UpdatedDate"),
+                            ThumbnailUrl = reader["ThumbnailUrl"] == DBNull.Value ? null : reader.GetString("ThumbnailUrl"),
+                            Link = reader["Link"] == DBNull.Value ? null : reader.GetString("Link"),
+                            GuId = reader["GuId"] == DBNull.Value ? null : reader.GetString("GuId")
                         });
                     }
                 return new NewsModel.BrowseModel.Return
@@ -156,6 +162,9 @@ namespace NewsCatcher.Services.Services
             sqlCommand.Parameters.AddWithValue("@Summary", request.Summary);
             sqlCommand.Parameters.AddWithValue("@CategoryId", request.CategoryId);
             sqlCommand.Parameters.AddWithValue("@SourceName", request.SourceName);
+            sqlCommand.Parameters.AddWithValue("@ThumbnailUrl", request.ThumbnailUrl ?? (object)DBNull.Value);
+            sqlCommand.Parameters.AddWithValue("@Link", request.Link ?? (object)DBNull.Value);
+            sqlCommand.Parameters.AddWithValue("@GuId", request.GuId ?? (object)DBNull.Value);
             try
             {
                 await sqlCommand.ExecuteNonQueryAsync();
@@ -206,6 +215,9 @@ namespace NewsCatcher.Services.Services
             sqlCommand.Parameters.AddWithValue("@Summary", request.Summary);
             sqlCommand.Parameters.AddWithValue("@CategoryId", request.CategoryId);
             sqlCommand.Parameters.AddWithValue("@SourceName", request.SourceName);
+            sqlCommand.Parameters.AddWithValue("@ThumbnailUrl", request.ThumbnailUrl ?? (object)DBNull.Value);
+            sqlCommand.Parameters.AddWithValue("@Link", request.Link ?? (object)DBNull.Value);
+            sqlCommand.Parameters.AddWithValue("@GuId", request.GuId ?? (object)DBNull.Value);
             try
             {
                 await sqlCommand.ExecuteNonQueryAsync();
