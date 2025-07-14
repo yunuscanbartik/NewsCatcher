@@ -27,6 +27,7 @@ builder.Services.AddSingleton<INotificationService, NotificationService>();
 builder.Services.AddSingleton<IUserFavoritiesService, UserFavoritiesService>();
 builder.Services.AddSingleton<IUsersService, UsersService>();
 
+
 builder.Services.AddSwaggerGen(swagger =>
 {
     var schemaHelper = new SwashbuckleSchemaHelper();
