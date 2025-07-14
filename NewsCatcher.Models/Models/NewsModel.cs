@@ -209,5 +209,81 @@ namespace NewsCatcher.Models.Models
                 public int Height { get; set; }
             }
         }
+        public class CNNModel
+        {
+            [XmlRoot(ElementName = "rss")]
+            public class Rss
+            {
+                [XmlElement("channel")]
+                public Channel Channel { get; set; }
+
+                [XmlAttribute("version")]
+                public string Version { get; set; }
+            }
+            public class Channel
+            {
+                [XmlElement("title")]
+                public string Title { get; set; }
+
+                [XmlElement("link")]
+                public string Link { get; set; }
+
+                [XmlElement("description")]
+                public string Description { get; set; }
+
+                [XmlElement("language")]
+                public string Language { get; set; }
+
+                [XmlElement("category")]
+                public string Category { get; set; }
+
+                [XmlElement("item")]
+                public List<Item> Item { get; set; }
+            }
+            public class Item
+            {
+                [XmlElement("guid")]
+                public Guid Guid { get; set; }
+
+                [XmlElement("link")]
+                public string Link { get; set; }
+
+                [XmlElement("title")]
+                public string Title { get; set; }
+
+                [XmlElement("description")]
+                public string Description { get; set; }
+
+                [XmlElement("pubDate")]
+                public string PubDateStr { get; set; }
+
+                [XmlIgnore]
+                public DateTime PubDate
+                {
+                    get
+                    {
+                        return DateTime.ParseExact(PubDateStr, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+                            System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    set { PubDateStr = value.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"); }
+                }
+
+                [XmlElement("image")]
+                public string Image { get; set; }
+            }
+            public class Guid
+            {
+                [XmlAttribute("isPermaLink")]
+                public bool IsPermaLink { get; set; } // içindeki değerin bir kalıcı bağlantı (permalink) olduğunu belirtir
+
+                [XmlText]
+                public string Value { get; set; }
+            }
+            public class AtomLink
+            {
+                [XmlAttribute("href")]
+                public string Href { get; set; }   //Atom besleme standardından alınmış bir özelliktir ve RSS beslemelerinde ek meta veri sağlamak için kullanılır.Genellikle bir haberin kendi URLsini veya başka bir ilgili belirtir.            
+            }
+        }
     }
 }
