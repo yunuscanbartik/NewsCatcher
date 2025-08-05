@@ -61,7 +61,7 @@ namespace NewsCatcher.Services.Services
                        verificationResult.Add(new OtpModel.VerifyOtp.ReturnData
                         {
                             Email = reader.GetString("Email"),
-                            JwtToken = await GenerateJwtTokenAsync(DateTime.Now.AddMinutes(180), request),
+                            JwtToken = await GenerateJwtTokenAsync(DateTime.Now.AddHours(3), request),
                             IsUsed = reader.GetBoolean("IsUsed")
                         });
                     }
@@ -69,7 +69,7 @@ namespace NewsCatcher.Services.Services
                 return new OtpModel.VerifyOtp.Return
                 {
                     Status = true,
-                    Message = "OTP Doğrulandı",
+                    Message = "OTP kodu doğrulandı.",
                     ErrorCode = null,
                     ErrorMessage = null,
                     RequestId = Guid.NewGuid().ToString(),

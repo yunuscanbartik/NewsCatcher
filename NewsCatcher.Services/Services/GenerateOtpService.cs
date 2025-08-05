@@ -23,8 +23,8 @@ namespace NewsCatcher.Services.Services
         public async Task<OtpModel.GenerateOtp.Return> GenerateOtpAsync(OtpModel.GenerateOtp.Request request)
         {
             var otp = new List<OtpModel.GenerateOtp.ReturnData>();
-            var sqlConnection = _dbContext.DatabaseConnection();
-            var sqlCommand = new SqlCommand("sp_GenerateOtpCode", sqlConnection)
+            var sqlConnection = _dbContext.DatabaseConnection();  
+            var sqlCommand = new SqlCommand("sp_GenerateOtpCode", sqlConnection)   //kullandığımız prosedürü bir objeye koyuyoruz ki kullanabilelim.
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -32,15 +32,15 @@ namespace NewsCatcher.Services.Services
 
             try
             {
-                using (var reader = sqlCommand.ExecuteReader())
-                    if (reader.Read())
+                using (var reader = sqlCommand.ExecuteReader())  //Bu bizim okuyucumuz. prosedürümüzü çalıştırıp bir objeye sokuyoruz. Using kullanıyoruz ki işi bittiğinde kendisini kapatsın.
+                    if (reader.Read()) //prosedür çalışıyorsa içeri girer.
                     {
                         otp.Add(new OtpModel.GenerateOtp.ReturnData
                         {
-                            Email = reader.GetString("Email")
+                            Email = reader.GetString("Email") // modeldeki emailin içerisine proesdürden girilen parametreyi sokar.
                         });
-                        var VerificationCode = reader.GetString("VerificationCode");
-                        bool emailSent = await _emailService.SendEmailAsync(
+                        var VerificationCode = reader.GetString("VerificationCode"); //objenin içerisine proesdürden donen parametreyi sokar.
+                        bool emailSent = await _emailService.SendEmailAsync(   //sendMail methodunu kullanarak ilgili maile OTP kodunu gönderir.
                             request.Email,
                             "Tek Kullanımlık Şifre",
                             $"Mehaba Tek kullanımlık Şifreniz: {VerificationCode}"
@@ -70,7 +70,7 @@ namespace NewsCatcher.Services.Services
                             StatusCode = 200,
                             RequestTime = DateTime.Now,
                             ResponseTime = DateTime.Now,
-                            Data = otp
+                            Data = otp // her şey başarılıysa data olarak otp döner.
                         };
                     }
                     else
