@@ -9,5 +9,6 @@ namespace NewsCatcher.Services.Interfaces
         Task<NewsModel.CreateModel.Return> AddNewsAsync(NewsModel.CreateModel.Request request);
         Task<NewsModel.UpdateModel.Return> UpdateNewsAsync(NewsModel.UpdateModel.Request request);
         Task<NewsModel.DeleteModel.Return> DeleteNewsAsync(NewsModel.DeleteModel.Request request);
+        Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList);
     }
 }

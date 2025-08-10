@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCatcher.Services", "New
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCatcherBackgroundService", "NewsCatcherBackgroundService\NewsCatcherBackgroundService.csproj", "{12B2E093-D654-4473-8002-C6BF53592B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsCatcher.RabbitMQ", "NewsCatcher.RabbitMQ\NewsCatcher.RabbitMQ.csproj", "{05173808-9FBD-42B7-A44F-6BB3590D9656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCatcher.RabbitMQ", "NewsCatcher.RabbitMQ\NewsCatcher.RabbitMQ.csproj", "{05173808-9FBD-42B7-A44F-6BB3590D9656}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dll", "Dll", "{CC8D4FBF-7C17-436C-AC0A-949DE8C90E56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsCatcherConsumerService", "NewsCatcherConsumerService\NewsCatcherConsumerService.csproj", "{432A8A82-797D-4D83-9A6C-2C9EE58A0210}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{05173808-9FBD-42B7-A44F-6BB3590D9656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05173808-9FBD-42B7-A44F-6BB3590D9656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05173808-9FBD-42B7-A44F-6BB3590D9656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{432A8A82-797D-4D83-9A6C-2C9EE58A0210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{432A8A82-797D-4D83-9A6C-2C9EE58A0210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{432A8A82-797D-4D83-9A6C-2C9EE58A0210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{432A8A82-797D-4D83-9A6C-2C9EE58A0210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

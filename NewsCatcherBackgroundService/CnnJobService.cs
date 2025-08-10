@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using NewsCatcher.Models.Models;
+using NewsCatcher.RabbitMQ.Interfaces;
 using NewsCatcher.Services.Data;
 using NewsCatcher.Services.Interfaces;
 using NLog;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -17,9 +19,11 @@ namespace NewsCatcherBackgroundService
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDatabaseContext _dbContext;
-        public CnnJobService(IDatabaseContext dbContext)
+        private readonly IRabbitMqService _rabbitMqService;
+        public CnnJobService(IDatabaseContext dbContext, IRabbitMqService rabbitMqService)
         {
             _dbContext = dbContext;
+            _rabbitMqService = rabbitMqService;
         }
         public async Task<List<NewsModel.CNNModel.Item>> GetRssItemsAsync(string feedUrl)
         {
@@ -34,8 +38,8 @@ namespace NewsCatcherBackgroundService
                     var serializer = new XmlSerializer(typeof(NewsModel.CNNModel.Item)); // xml i parçalayarak nesneye dönüştürmek için XmlSerializer kullanıyorum.
                     using (var stringReader = new StringReader(xmlContent)) // xml içeriğini string olarak okuyabilmek için StringReader kullanıyorum.
                     {
-                        var rss = (NewsModel.CNNModel.Item)serializer.Deserialize(stringReader);
-                        //return rss; 
+                        var rss = (NewsModel.CNNModel.Rss)serializer.Deserialize(stringReader); 
+                        return rss.Channel?.Item ?? new List<NewsModel.CNNModel.Item>();
                     }
                 }
             }
@@ -76,43 +80,22 @@ namespace NewsCatcherBackgroundService
             return returnDataList;
         }
 
-        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList)
+        public async Task SendToQueueAsync(List<NewsModel.CreateModel.ReturnData> returnDataList, string queueName)
         {
-            var sqlConnection = _dbContext.DatabaseConnection();
             try
             {
                 foreach (var item in returnDataList)
                 {
+                    var message = JsonSerializer.Serialize(item);
 
-                    using (var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection))
-                    {
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
-                        sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId.HasValue && item.CategoryId != 0 ? (object)item.CategoryId : DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@ThumbnailUrl", (object)item.ThumbnailUrl?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@GuId", (object)item.GuId?.Trim() ?? DBNull.Value);
-                        sqlCommand.Parameters.AddWithValue("@Link", (object)item.Link?.Trim() ?? DBNull.Value);
-                        var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
-                        sqlCommand.Parameters.Add(newsIdParam);
-                        await sqlCommand.ExecuteNonQueryAsync();
-                        item.NewsId = (int)newsIdParam.Value;
-                    }
-
+                    _rabbitMqService.PublishMessage(message, queueName);
                 }
-                _logger.Info("Veritabanına kaydedilen haber sayısı: {Count}", returnDataList.Count);
-                return returnDataList;
 
+                _logger.Info("Kuyruğa gönderilen haberler: ", returnDataList.Count);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Veritabanına kaydetme işlemi sırasında hata oluştu.");
-                return returnDataList;
+                _logger.Error(ex, "Kuyruğa gönderirken hata oluştu.");
             }
         }
     }

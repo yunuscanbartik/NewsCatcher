@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using NewsCatcher.RabbitMQ.Interfaces;
 using NewsCatcher.RabbitMQ.Models;
-using NewsCatcher.Services.Data;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -15,12 +14,10 @@ namespace NewsCatcher.RabbitMQ.Services
     public class RabbitMqService : IRabbitMqService
     {
         private readonly RabbitMqSettingsModel _settings;
-        private readonly IDatabaseContext _dbContext;
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        public RabbitMqService(RabbitMqSettingsModel settings, IDatabaseContext dbContext, IOptions<RabbitMqSettingsModel> options)
-        {
-            _dbContext = dbContext ;        
+        public RabbitMqService(RabbitMqSettingsModel settings, IOptions<RabbitMqSettingsModel> options)
+        {        
             _settings = options.Value;
             var factory = new ConnectionFactory
             {

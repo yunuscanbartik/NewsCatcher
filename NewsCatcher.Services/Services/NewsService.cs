@@ -294,5 +294,42 @@ namespace NewsCatcher.Services.Services
                 };
             }
         }
+        public async Task<List<NewsModel.CreateModel.ReturnData>> SaveToDatabaseAsync(List<NewsModel.CreateModel.ReturnData> returnDataList)
+        {
+            var sqlConnection = _dbContext.DatabaseConnection();
+            try
+            {
+                foreach (var item in returnDataList)
+                {
+
+                    using (var sqlCommand = new SqlCommand("sp_News_Create", sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("@Title", (object)item.Title?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Content", (object)item.Content?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Summary", (object)item.Summary?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@CategoryId", item.CategoryId.HasValue && item.CategoryId != 0 ? (object)item.CategoryId : DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@SourceName", (object)item.SourceName?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@ThumbnailUrl", (object)item.ThumbnailUrl?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@GuId", (object)item.GuId?.Trim() ?? DBNull.Value);
+                        sqlCommand.Parameters.AddWithValue("@Link", (object)item.Link?.Trim() ?? DBNull.Value);
+                        var newsIdParam = new SqlParameter("@NewsId", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        sqlCommand.Parameters.Add(newsIdParam);
+                        await sqlCommand.ExecuteNonQueryAsync();
+                        item.NewsId = (int)newsIdParam.Value;
+                    }
+
+                }
+                return returnDataList;
+
+            }
+            catch (Exception ex)
+            {
+                return returnDataList;
+            }
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace NewsCatcher.Services.Interfaces
     {
         Task<List<NewsModel.BBCModel.Item>> GetRssItemsAsync(string feedUrl);
         Task<List<NewsModel.CreateModel.ReturnData>> MapToReturnDataAsync(List<NewsModel.BBCModel.Item> bbcItems);
-        //Task<List<NewsModel.CreateModel.ReturnData>> SendQueue(List<NewsModel.CreateModel.ReturnData> returnDataList);
+        Task SendToQueueAsync(List<NewsModel.CreateModel.ReturnData> returnDataList, string queueName);
     }
 }

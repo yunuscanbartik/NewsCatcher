@@ -14,29 +14,47 @@ namespace NewsCatcherBackgroundService
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger(); // Log mesajları için Nlog kullanılıyor.
         private readonly IDatabaseContext _dbContext;
-        private readonly IConfiguration _configuration; 
-        private readonly IRssFeedService _rssFeedService; // Bu servisi kullanarak RSS beslemelerini alacağız.
-        public RssBackgroundService(IDatabaseContext dbContext, IConfiguration configuration, IRssFeedService rssFeedService)
+        private readonly IConfiguration _configuration;
+        private readonly IBbcJobService _bbcJobService; 
+        private readonly ICnnJobService _cnnJobService;
+
+        public RssBackgroundService(IDatabaseContext dbContext, IConfiguration configuration, IBbcJobService bbcJobService, ICnnJobService cnnJobService)
         {
             _dbContext = dbContext; 
             _configuration = configuration;
-            _rssFeedService = rssFeedService;
+            _bbcJobService = bbcJobService;
+            _cnnJobService = cnnJobService;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var feedUrl = _configuration.GetValue<string>("Rss:FeedUrl:BBC");
+            var feedUrlList = _configuration
+                .GetSection("Rss:FeedUrls")
+                .Get<Dictionary<string, string>>(); // 2 tane string alan olma sebebi ismi ve karşısına linki olacak şekilde.
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
-                    _logger.Info("RssBackgroundService RSS verilerini çekiyor...");
+                    foreach (var feed in feedUrlList) //TODO CONFIGDEN LISTEYI AL
+                    {
+                        var sourceName = feed.Key;
+                        var feedUrl = feed.Value;
 
-                    var rssItems = await _rssFeedService.GetRssItemsAsync(feedUrl);
-                    var mappedData = await _rssFeedService.MapToReturnDataAsync(rssItems);
+                        switch (sourceName.ToUpper())
+                        {
+                            case "BBC":
+                                await _bbcJobService.GetRssItemsAsync(feedUrl);
+                                break;
 
-                    var savedData = await _rssFeedService.SaveToDatabaseAsync(mappedData);
-                    _logger.Info($"{savedData.Count} haber başarıyla veritabanına kaydedildi.");
+                            case "CNN":
+                                await _cnnJobService.GetRssItemsAsync(feedUrl);
+                                break;
 
+                            default:
+                                _logger.Error($"kaynak bulunamadı");
+                                break;
+                        }
+
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -44,8 +62,6 @@ namespace NewsCatcherBackgroundService
                 }
                 await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
             }
-
-            throw new NotImplementedException("RssBackgroundService henüz uygulanmadı. Lütfen uygulamayı tamamlayın.");
         }
         public override async Task StartAsync(CancellationToken cancellationToken)
         {

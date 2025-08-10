@@ -7,7 +7,8 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddSingleton(builder.Configuration);
 
-builder.Services.AddSingleton<IRssFeedService, RssFeedService>();
+builder.Services.AddSingleton<ICnnJobService, CnnJobService>();
+builder.Services.AddSingleton<IBbcJobService, BbcJobService>();
 builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
 builder.Services.AddLogging(logging => logging.AddConsole());
 
