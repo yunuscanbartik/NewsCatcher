@@ -36,16 +36,16 @@ namespace NewsCatcherConsumerService
                         if (newsList != null && newsList.Count > 0)
                         {
                             await _newsService.SaveToDatabase(newsList);
-                            _logger.LogInformation("RabbitMQ'dan gelen {Count} haber veritaban�na kaydedildi.", newsList.Count);
+                            _logger.LogInformation("{Count} news items from RabbitMQ were saved to the database.", newsList.Count);
                         }
                         else
                         {
-                            _logger.LogWarning("RabbitMQ'dan veri al�n�rken sorun olustu");
+                            _logger.LogWarning("No valid news data was received from RabbitMQ.");
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "RabbitMQ mesaj� i�lenirken hata olu�tu.");
+                        _logger.LogError(ex, "An error occurred while processing a RabbitMQ message.");
                     }
                 }
             });

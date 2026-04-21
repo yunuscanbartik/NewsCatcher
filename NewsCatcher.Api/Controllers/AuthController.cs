@@ -1,5 +1,8 @@
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using NewsCatcher.Application.Exceptions;
 using NewsCatcher.Domain.Interfaces;
 using NewsCatcher.Models.Models;
 
@@ -17,10 +20,22 @@ namespace NewsCatcherApi.Controllers
         }
 
         [HttpPost("GenerateOtp")]
+        [EnableRateLimiting("auth_generate_otp")]
         public async Task<IActionResult> GenerateOtp(AuthModel.GenerateOtp.Request request)
         {
-            await _authService.GenerateOtpAsync(request);
-            return Ok();
+            try
+            {
+                var result = await _authService.GenerateOtpAsync(request);
+                return Ok(new { remainingTime = result.RemainingTime, mailSent = result.MailSent });
+            }
+            catch (OtpEmailLimitExceededException ex)
+            {
+                return StatusCode(StatusCodes.Status429TooManyRequests, new
+                {
+                    errorCode = "OTP_EMAIL_LIMIT",
+                    message = ex.Message,
+                });
+            }
         }
 
         [HttpPost("GenerateToken")]
@@ -28,7 +43,9 @@ namespace NewsCatcherApi.Controllers
         {
             var result = await _authService.GenerateTokenAsync(request);
             var jwt = result.Data?.FirstOrDefault()?.JwtCode;
-            return Ok(new { jwtCode = jwt });
+            // Same lifetime as JWT issued in AuthService (AddHours(3)).
+            const int tokenLifetimeSeconds = 3 * 60 * 60;
+            return Ok(new { jwtCode = jwt, expiresInSeconds = tokenLifetimeSeconds });
         }
     }
 }

@@ -61,7 +61,7 @@ namespace NewsCatcherBackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "RSS okunamadı: {Source} {Url}", sourceName, feedUrl);
+                _logger.LogWarning(ex, "RSS feed could not be read: {Source} {Url}", sourceName, feedUrl);
             }
 
             return list;

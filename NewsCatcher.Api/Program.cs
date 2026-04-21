@@ -21,6 +21,7 @@ builder.Services.Configure<SmtpSettingsOptions>(builder.Configuration.GetSection
 builder.Services.Configure<AppSettingsOptions>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.Configure<ConnectionStringsOptions>(builder.Configuration.GetSection("ConnectionStrings"));
 
+builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IDatabaseContext, DatabaseContext>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
 builder.Services.AddSingleton<IEmailService, SendEmailService>();
@@ -72,13 +73,24 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddRateLimiter(options =>
 {
+    options.AddPolicy("auth_generate_otp", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 12,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            }));
+
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     options.OnRejected = async (context, token) =>
     {
         var response = new ReturnModel
         {
             Status = false,
-            Message = "�ok fazla istek g�nderildi. L�tfen daha sonra tekrar deneyin.",
+            Message = "Too many requests. Please try again later.",
             ErrorCode = "RATE_LIMIT_EXCEEDED",
             ErrorMessage = "Rate limit exceeded",
             RequestId = context.HttpContext.TraceIdentifier,
@@ -114,7 +126,7 @@ builder.Services.AddSwaggerGen(swagger =>
         Type = SecuritySchemeType.ApiKey,
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Description = "API anahtar�n�z� buraya girin."
+        Description = "Enter your API key (JWT) in the Authorization header."
     });
 
     swagger.AddSecurityRequirement(new OpenApiSecurityRequirement

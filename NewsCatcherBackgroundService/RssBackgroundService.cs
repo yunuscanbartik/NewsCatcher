@@ -31,7 +31,7 @@ namespace NewsCatcherBackgroundService
             {
                 if (feedUrlList is null || !feedUrlList.Any())
                 {
-                    _logger.Error("RSS kaynak listesi bos.");
+                    _logger.Error("RSS feed source list is empty.");
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                     continue;
                 }
@@ -50,7 +50,7 @@ namespace NewsCatcherBackgroundService
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error(ex, "RSS kaynagi islenirken hata: {Source}", sourceName);
+                        _logger.Error(ex, "Error while processing RSS source: {Source}", sourceName);
                     }
                 }
 
@@ -98,13 +98,13 @@ namespace NewsCatcherBackgroundService
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.Info("Background Service basliyor");
+            _logger.Info("Background service is starting.");
             await base.StartAsync(cancellationToken);
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.Info("Background Service duruyor");
+            _logger.Info("Background service is stopping.");
             await base.StopAsync(cancellationToken);
         }
     }

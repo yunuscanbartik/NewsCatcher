@@ -17,6 +17,8 @@ namespace NewsCatcher.Models.Models
 
             public class Return : ReturnModel
             {
+                public int RemainingTime { get; set; }
+                public bool MailSent { get; set; }
             }
         }
 
