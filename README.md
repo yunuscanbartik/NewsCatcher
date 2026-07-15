@@ -1,5 +1,5 @@
 # NewsCatcher
-NewsCatcher aggregates news from RSS and related sources, persists them in SQL Server, and exposes a **.NET 8 Web API** for authentication, news browsing, favorites, notifications, and admin-style CRUD operations. Optional **background workers** ingest feeds and consume queue messages.
+NewsCatcher aggregates news from RSS and related sources, persists them in SQL Server, and exposes a **.NET 9 Web API** for authentication, news browsing, favorites, notifications, and admin-style CRUD operations. Optional **background workers** ingest feeds and consume queue messages.
 ## Features
 
 - **OTP + JWT authentication** (`/api/Auth/GenerateOtp`, `/api/Auth/GenerateToken`) with resend throttling and email quotas on the server
@@ -8,6 +8,7 @@ NewsCatcher aggregates news from RSS and related sources, persists them in SQL S
 - **Users**, **User favorites**, **Notifications**, **News statistics**
 - **Global rate limiting** plus a stricter limiter on `GenerateOtp`
 - **Swagger UI** in development
+- **[pinqloq](https://pinqloq.pinqponq.io/) logging** — every HTTP request logged automatically; unhandled exceptions forwarded with full stack trace
 
 ## Solution layout
 | Project | Role |
@@ -20,19 +21,28 @@ NewsCatcher aggregates news from RSS and related sources, persists them in SQL S
 | **NewsCatcherConsumerService** | RabbitMQ consumer worker |
 
 ## Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - SQL Server (connection string in configuration)
 - (Optional) SMTP for OTP emails; RabbitMQ for queue-based flows
+- (Optional) A [pinqloq](https://pinqloq.pinqponq.io/) project and secret key for log shipping
 
 ## Configuration
-Copy or edit `appsettings.json` / `appsettings.Development.json` in **NewsCatcher.Api** (and workers as needed):
+Copy `NewsCatcher.Api/appsettings.json.example` to `appsettings.json` and fill in:
 
 - **ConnectionStrings:DefaultConnection** — SQL Server
 - **AppSettings:Secret** — JWT signing key (use a strong secret in production)
 - **SmtpSettings** — host, port, credentials, `From` for OTP mail
+- **Pinqloq:SecretKey** — your pinqloq secret key (server-side only, never commit)
+- **Pinqloq:ApiLogsCollectionName** — collection name in the pinqloq dashboard (default: `newscatcher_api_logs`)
 - **Rss** / **RabbitMQ** — where applicable for background services
 
 Do **not** commit real passwords or production secrets. Use [User Secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets), environment variables, or a secret manager in CI.
+
+## Logging
+
+HTTP request logging and exception tracking are handled by [pinqloq](https://pinqloq.pinqponq.io/) ([NuGet](https://www.nuget.org/packages/pinqloq)). Every request is logged automatically via middleware. Unhandled exceptions are also sent as separate `Error`-level events with the full stack trace.
+
+Without `Pinqloq:SecretKey` set, the SDK still registers and starts — logs simply won't be shipped. Set the key to enable real forwarding.
 
 ## Run the API
 ```bash
