@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using NewsCatcher.Models.Models;
+using Pinqloq;
 
 namespace NewsCatcherApi.Middleware
 {
@@ -8,11 +9,16 @@ namespace NewsCatcherApi.Middleware
     {
         private readonly RequestDelegate _requestDelegate;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+        private readonly IPinqloqLogger _pinqloqLogger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate requestDelegate, ILogger<ExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(
+            RequestDelegate requestDelegate,
+            ILogger<ExceptionHandlingMiddleware> logger,
+            IPinqloqLogger pinqloqLogger)
         {
             _requestDelegate = requestDelegate;
             _logger = logger;
+            _pinqloqLogger = pinqloqLogger;
         }
 
         public async Task InvokeAsync(HttpContext httpcontext)
@@ -24,6 +30,23 @@ namespace NewsCatcherApi.Middleware
             catch (Exception exception)
             {
                 _logger.LogError(exception, "Unhandled exception. TraceId: {TraceId}", httpcontext.TraceIdentifier);
+                _pinqloqLogger.Enqueue(new PinqloqLogEntry
+                {
+                    Event = $"unhandled_exception: {exception.GetType().Name}",
+                    LogLevel = PinqloqLogLevel.Error,
+                    LogSourceType = PinqloqLogSourceType.Backend,
+                    Metadata = new Dictionary<string, string>
+                    {
+                        ["traceId"] = httpcontext.TraceIdentifier,
+                        ["method"] = httpcontext.Request.Method,
+                        ["path"] = httpcontext.Request.Path
+                    },
+                    Detail = new Dictionary<string, string>
+                    {
+                        ["message"] = exception.Message,
+                        ["stack"] = exception.StackTrace ?? string.Empty
+                    }
+                });
                 await WriteErrorResponseAsync(httpcontext, exception);
             }
         }

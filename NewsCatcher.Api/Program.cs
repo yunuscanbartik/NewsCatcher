@@ -11,8 +11,12 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pinqloq;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddPinqloq(options =>
+    builder.Configuration.GetSection("Pinqloq").Bind(options));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -151,6 +155,12 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UsePinqloqRequestLogging(options =>
+{
+    options.ExcludePaths("/swagger");
+    options.AddMetadata("userId", ctx => ctx.User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value);
+});
 
 app.UseHttpsRedirection();
 

@@ -1,0 +1,19 @@
+{
+  "Pinqloq": {
+    "SecretKey": "",
+    "ApiLogsCollectionName": "newscatcher_api_logs"
+  },
+  "AppSettings": {
+    "Secret": ""
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": ""
+  },
+  "SmtpSettings": {
+    "Host": "",
+    "Port": 587,
+    "Username": "",
+    "Password": "",
+    "From": ""
+  }
+}
